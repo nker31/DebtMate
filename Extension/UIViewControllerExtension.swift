@@ -23,4 +23,13 @@ extension UIViewController {
         
         return labelStackView
     }
+    
+    func setRootViewController(_ rootViewController: UIViewController) {
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = rootViewController
+            window.makeKeyAndVisible()
+
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        }
+    }
 }
