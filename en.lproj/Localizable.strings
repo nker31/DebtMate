@@ -1,0 +1,173 @@
+/* 
+  Localizable.strings
+  DebtMate
+
+  Created by Nathat Kuanthanom on 12/4/24.
+  
+*/
+
+// Login Screen
+"login_email_label" = "Email";
+"login_email_placeholder" = "Enter your email";
+"login_password_label" = "Password";
+"login_password_placeholder" = "Enter your password";
+"login_button" = "Login";
+"login_no_account_button" = "Don't have an account? Sign Up";
+
+// Sign Up Screen
+"signup_screen_title" = "Sign Up";
+"signup_full_name_label" = "Full Name";
+"signup_full_name_placeholder" = "Your full name";
+"signup_email_label" = "Email";
+"signup_email_placeholder" = "Your email";
+"signup_password_label" = "Password";
+"signup_password_placeholder" = "8 - 12 Characters";
+"signup_confirm_password_label" = "Confirm Password";
+"signup_confirm_password_placeholder" = "Repeat your password";
+"signup_terms_and_condition_label" = "I accept the Terms & Conditions";
+"signup_button" = "Sign Up";
+
+// Terms and Conditions Screen
+"terms_conditions_screen_title" = "Terms and Conditions";
+"terms_conditions_reject_button" = "Reject";
+"terms_conditions_accept_button" = "Accept";
+"terms_conditions_text" = "1. Introduction\nWelcome to LendPal! By creating an account, you agree to comply with and be bound by these Terms and Conditions.\n\n2. Consent to Use Personal Data\nBy signing up, you acknowledge and agree that LendPal will collect, store, and process your personal data.\n\n3. Data Storage and Security\nWe take your privacy seriously. All personal data, including user profiles, contacts, and transactions, is securely stored.\n\n4. User Responsibilities\nYou are responsible for providing accurate information and ensuring individuals you add have consented.\n\n5. Use of App Features\nUse LendPal for lawful purposes and do not misuse or share data without consent.\n\n6. Limitation of Liability\nLendPal is provided \"as is\" without warranties of any kind.\n\n7. Account Creation and Maintenance\nMaintain the confidentiality of your account credentials.\n\n8. Updates to Terms\nTerms may be updated. Continued use of the app indicates acceptance.\n\n9. Contact Us\nFor concerns, email support@lendpal.com.\n\nBy tapping \"Accept\" you confirm you have read, understood, and agree to these Terms and Conditions.";
+
+// Main Screen
+"main_total_lent" = "Total Lent";
+"main_total_borrowed" = "Total Borrowed";
+
+// Adding Transaction Screen
+"add_transaction_lender_label" = "Lender";
+"add_transaction_borrower_label" = "Borrower";
+"add_transaction_select_button" = "Select";
+"add_transaction_remove_button" = "Remove";
+"add_transaction_lend_segment" = "Lend";
+"add_transaction_borrow_segment" = "Borrow";
+"add_transaction_amount_label" = "Amount";
+"add_transaction_amount_placeholder" = "Amount";
+"add_transaction_description_label" = "Description";
+"add_transaction_description_placeholder" = "Description";
+"add_transaction_due_date_label" = "Due Date";
+"add_transaction_add_button" = "Add";
+"add_transaction_add_manually_button" = "Add Manually";
+"add_transaction_select_contact_button" = "Select from contacts";
+"add_transaction_select_existing_button" = "Select from existing";
+
+// Add Manual Person Screen
+"add_manual_person_screen_title" = "Add Lender/Borrower";
+"add_manual_person_name_label" = "Name";
+"add_manual_person_name_placeholder" = "Name";
+"add_manual_person_phone_number_label" = "Phone Number";
+"add_manual_person_phone_number_placeholder" = "Phone Number (Optional)";
+"add_manual_person_add_button" = "Add";
+
+// Contact Selection Screen
+"contact_selection_search_placeholder" = "Search Contacts";
+"contact_selection_cancel_button" = "Cancel";
+"contact_selection_access_denied_message" = "Contact Access Denied \n To enable contact access, please update your settings.";
+"contact_selection_go_to_settings_button" = "Go to Settings";
+"contact_selection_not_found_message" = "No contacts found";
+"contact_selection_alert_title" = "Contacts Access Denied";
+"contact_selection_alert_message" = "To access your contacts, please go to settings and enable it.";
+"contact_selection_alert_cancel_button" = "Cancel";
+"contact_selection_alert_settings_button" = "Settings";
+
+// Existing Person Selection Screen
+"existing_person_selection_search_placeholder" = "Search Existing Lender/Borrower";
+"existing_person_selection_cancel_button" = "Cancel";
+"existing_person_selection_not_found_message" = "No existing person found";
+
+// Person Cell
+"person_cell_borrowed_label" = "Borrowed";
+"person_cell_lent_label" = "Lent";
+"person_cell_balance_label" = "Balance";
+"person_cell_no_transaction_label" = "No transaction";
+
+// Person Screen
+"person_screen_no_transaction_label" = "No Transaction";
+"person_screen_edit_button" = "Edit";
+"person_screen_lending_transactions_section" = "Lending Transactions";
+"person_screen_borrowing_transactions_section" = "Borrowing Transactions";
+"person_screen_delete_button" = "Delete";
+"person_screen_paid_button" = "Paid";
+"person_screen_unpaid_button" = "Unpaid";
+"person_screen_update_success_title" = "Update Successful";
+"person_screen_update_success_message" = "The data has been successfully updated.";
+
+// Edit Person Screen
+"edit_person_change_image_button" = "Change Image";
+"edit_person_name_label" = "Name";
+"edit_person_name_placeholder" = "Name";
+"edit_person_phone_number_label" = "Phone Number";
+"edit_person_phone_number_placeholder" = "Phone Number";
+"edit_person_save_button" = "Update";
+"edit_person_error_alert_title" = "Error";
+"edit_person_error_alert_message_empty_name" = "Name cannot be empty.";
+
+// Transaction Detail Screen
+"transaction_detail_type_lent" = "Lent";
+"transaction_detail_type_borrowed" = "Borrowed";
+"transaction_detail_no_description" = "No description";
+"transaction_detail_no_due_date" = "No due date";
+"transaction_detail_status_paid" = "Paid";
+"transaction_detail_status_unpaid" = "Unpaid";
+"transaction_detail_due_date_overdue" = "Unpaid (Overdue)";
+"transaction_detail_created_at_label" = "Created";
+"transaction_detail_description_label" = "Description";
+"transaction_detail_due_date_label" = "Due Date";
+"transaction_detail_status_label" = "Status";
+"transaction_detail_mark_as_paid_button" = "Mark as Paid";
+"transaction_detail_mark_as_unpaid_button" = "Mark as Unpaid";
+
+// Transaction History Screen
+"transaction_history_screen_title" = "Transaction History";
+"transaction_history_empty_label" = "No transactions yet.";
+
+// Transaction History Cell
+"transaction_history_cell_default_person_name" = "Unknown";
+"transaction_history_cell_paid_status" = "Paid";
+"transaction_history_cell_unpaid_status" = "Unpaid";
+"transaction_history_cell_unpaid_overdue_status" = "Unpaid (Overdue)";
+
+// Setting Screen
+"setting_screen_title" = "Setting";
+"setting_account_section" = "Account";
+"setting_app_preference_section" = "App Preferences";
+"setting_notification_label" = "Notification";
+"setting_language_label" = "Language";
+"setting_about_section" = "About";
+"setting_privacy_label" = "Privacy & Policy";
+"setting_contact_us_label" = "Contact Us";
+"setting_signout_button" = "Sign Out";
+// setting notification
+
+// Account Screen
+"account_screen_title" = "Account";
+"account_edit_details_label" = "Edit Account Details";
+"account_change_password_label" = "Change Password";
+"account_delete_account_label" = "Delete Account";
+"account_update_success_title" = "Update Successful";
+"account_update_success_message" = "The data has been successfully updated.";
+
+// Edit Account Details Screen
+"edit_account_screen_title" = "Edit Account Details";
+"edit_account_full_name_label" = "Full Name";
+"edit_account_full_name_placeholder" = "Enter Full Name";
+"edit_account_update_button" = "Update";
+"edit_account_alert_error_title" = "Error";
+"edit_account_alert_error_message_empty_name" = "Name cannot be empty.";
+
+// Change Password Screen
+"change_password_screen_title" = "Change Password";
+"change_password_current_password_label" = "Current Password";
+"change_password_current_password_placeholder" = "Current Password";
+"change_password_new_password_label" = "New Password";
+"change_password_new_password_placeholder" = "New Password (minimum 8 characters)";
+"change_password_confirm_password_label" = "Confirm New Password";
+"change_password_confirm_password_placeholder" = "Re-enter new password";
+"change_password_update_button" = "Update Password";
+"change_password_alert_error_title" = "Error";
+"change_password_alert_error_message_mismatch" = "Passwords do not match.";
+"change_password_alert_success_title" = "Success";
+"change_password_alert_success_message" = "Your password has been successfully changed.";

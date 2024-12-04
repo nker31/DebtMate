@@ -1,0 +1,172 @@
+/* 
+  Localizable.strings
+  DebtMate
+
+  Created by Nathat Kuanthanom on 12/4/24.
+  
+*/
+
+// Login Screen
+"login_email_label" = "อีเมล";
+"login_email_placeholder" = "กรอกอีเมลของคุณ";
+"login_password_label" = "รหัสผ่าน";
+"login_password_placeholder" = "กรอกรหัสผ่านของคุณ";
+"login_button" = "เข้าสู่ระบบ";
+"login_no_account_button" = "ยังไม่มีบัญชี? สมัครสมาชิก";
+
+// Sign Up Screen
+"signup_screen_title" = "สมัครสมาชิก";
+"signup_full_name_label" = "ชื่อเต็ม";
+"signup_full_name_placeholder" = "ชื่อเต็มของคุณ";
+"signup_email_label" = "อีเมล";
+"signup_email_placeholder" = "อีเมลของคุณ";
+"signup_password_label" = "รหัสผ่าน";
+"signup_password_placeholder" = "8 - 12 ตัวอักษร";
+"signup_confirm_password_label" = "ยืนยันรหัสผ่าน";
+"signup_confirm_password_placeholder" = "กรอกรหัสผ่านอีกครั้ง";
+"signup_terms_and_condition_label" = "ฉันยอมรับข้อกำหนดและเงื่อนไข";
+"signup_button" = "สมัครสมาชิก";
+
+// Terms and Conditions Screen
+"terms_conditions_screen_title" = "ข้อกำหนดและเงื่อนไข";
+"terms_conditions_reject_button" = "ปฏิเสธ";
+"terms_conditions_accept_button" = "ยอมรับ";
+"terms_conditions_text" = "1. บทนำ\nยินดีต้อนรับสู่ LendPal! เมื่อคุณสร้างบัญชี แสดงว่าคุณยอมรับและตกลงที่จะปฏิบัติตามข้อกำหนดและเงื่อนไขเหล่านี้\n\n2. การยินยอมให้ใช้ข้อมูลส่วนบุคคล\nโดยการสมัครใช้งาน คุณรับทราบและยินยอมว่า LendPal จะเก็บรวบรวม จัดเก็บ และประมวลผลข้อมูลส่วนบุคคลของคุณ\n\n3. การจัดเก็บข้อมูลและความปลอดภัย\nเรามุ่งมั่นในการปกป้องความเป็นส่วนตัวของคุณ ข้อมูลส่วนบุคคลทั้งหมด รวมถึงโปรไฟล์ผู้ใช้ รายชื่อผู้ติดต่อ และธุรกรรม จะถูกจัดเก็บไว้อย่างปลอดภัย\n\n4. ความรับผิดชอบของผู้ใช้\nคุณมีหน้าที่รับผิดชอบในการให้ข้อมูลที่ถูกต้องและต้องมั่นใจว่าได้รับความยินยอมจากบุคคลที่คุณเพิ่ม\n\n5. การใช้งานคุณสมบัติของแอป\nใช้ LendPal เพื่อวัตถุประสงค์ที่ถูกต้องตามกฎหมาย และห้ามใช้งานในทางที่ผิดหรือแบ่งปันข้อมูลโดยไม่ได้รับอนุญาต\n\n6. การจำกัดความรับผิด\nLendPal ให้บริการ \"ตามสภาพที่เป็น\" โดยไม่มีการรับประกันใด ๆ\n\n7. การสร้างและดูแลบัญชี\nคุณต้องรักษาความลับของข้อมูลบัญชีของคุณ\n\n8. การอัปเดตข้อกำหนด\nข้อกำหนดอาจมีการอัปเดต การใช้งานแอปอย่างต่อเนื่องถือว่าคุณยอมรับข้อกำหนดใหม่\n\n9. ติดต่อเรา\nหากมีข้อสงสัย กรุณาอีเมลมาที่ support@lendpal.com\n\nโดยการแตะ \"ยอมรับ\" แสดงว่าคุณได้อ่าน ทำความเข้าใจ และยอมรับข้อกำหนดและเงื่อนไขเหล่านี้";
+
+// Main Screen
+"main_total_lent" = "ยอดเงินที่ให้ยืม";
+"main_total_borrowed" = "ยอดเงินที่ยืม";
+
+// Adding Transaction Screen
+"add_transaction_lender_label" = "ผู้ให้ยืม";
+"add_transaction_borrower_label" = "ผู้ยืม";
+"add_transaction_select_button" = "เลือก";
+"add_transaction_remove_button" = "ลบ";
+"add_transaction_lend_segment" = "ให้ยืม";
+"add_transaction_borrow_segment" = "ยืม";
+"add_transaction_amount_label" = "จำนวนเงิน";
+"add_transaction_amount_placeholder" = "จำนวนเงิน";
+"add_transaction_description_label" = "คำอธิบาย";
+"add_transaction_description_placeholder" = "คำอธิบาย";
+"add_transaction_due_date_label" = "วันครบกำหนด";
+"add_transaction_add_button" = "เพิ่ม";
+"add_transaction_add_manually_button" = "เพิ่มด้วยตนเอง";
+"add_transaction_select_contact_button" = "เลือกจากรายชื่อผู้ติดต่อ";
+"add_transaction_select_existing_button" = "เลือกจากรายชื่อที่มีอยู่";
+
+// Add Manual Person Screen
+"add_manual_person_screen_title" = "เพิ่มผู้ให้ยืม/ผู้ยืม";
+"add_manual_person_name_label" = "ชื่อ";
+"add_manual_person_name_placeholder" = "ชื่อ";
+"add_manual_person_phone_number_label" = "เบอร์โทรศัพท์";
+"add_manual_person_phone_number_placeholder" = "เบอร์โทรศัพท์ (ไม่บังคับ)";
+"add_manual_person_add_button" = "เพิ่ม";
+
+// Contact Selection Screen
+"contact_selection_search_placeholder" = "ค้นหารายชื่อผู้ติดต่อ";
+"contact_selection_cancel_button" = "ยกเลิก";
+"contact_selection_access_denied_message" = "การเข้าถึงรายชื่อผู้ติดต่อถูกปฏิเสธ \n กรุณาอัปเดตการตั้งค่าของคุณเพื่อเปิดใช้งานการเข้าถึงรายชื่อผู้ติดต่อ";
+"contact_selection_go_to_settings_button" = "ไปที่การตั้งค่า";
+"contact_selection_not_found_message" = "ไม่พบรายชื่อผู้ติดต่อ";
+"contact_selection_alert_title" = "การเข้าถึงรายชื่อผู้ติดต่อถูกปฏิเสธ";
+"contact_selection_alert_message" = "เพื่อเข้าถึงรายชื่อผู้ติดต่อ กรุณาไปที่การตั้งค่าและเปิดใช้งาน";
+"contact_selection_alert_cancel_button" = "ยกเลิก";
+"contact_selection_alert_settings_button" = "การตั้งค่า";
+
+// Existing Person Selection Screen
+"existing_person_selection_search_placeholder" = "ค้นหาผู้ให้ยืม/ผู้ยืมที่มีอยู่";
+"existing_person_selection_cancel_button" = "ยกเลิก";
+"existing_person_selection_not_found_message" = "ไม่พบผู้ให้ยืม/ผู้ยืมที่มีอยู่";
+
+// Person Cell
+"person_cell_borrowed_label" = "ยอดเงินที่ยืม";
+"person_cell_lent_label" = "ยอดเงินที่ให้ยืม";
+"person_cell_balance_label" = "ยอดคงเหลือ";
+"person_cell_no_transaction_label" = "ไม่มีการทำรายการ";
+
+// Person Screen
+"person_screen_no_transaction_label" = "ไม่มีการทำรายการ";
+"person_screen_edit_button" = "แก้ไข";
+"person_screen_lending_transactions_section" = "รายการให้ยืม";
+"person_screen_borrowing_transactions_section" = "รายการยืม";
+"person_screen_delete_button" = "ลบ";
+"person_screen_paid_button" = "ชำระแล้ว";
+"person_screen_unpaid_button" = "ยังไม่ชำระ";
+"person_screen_update_success_title" = "อัปเดตสำเร็จ";
+"person_screen_update_success_message" = "ข้อมูลได้รับการอัปเดตเรียบร้อยแล้ว";
+
+// Edit Person Screen
+"edit_person_change_image_button" = "เปลี่ยนรูปภาพ";
+"edit_person_name_label" = "ชื่อ";
+"edit_person_name_placeholder" = "ชื่อ";
+"edit_person_phone_number_label" = "เบอร์โทรศัพท์";
+"edit_person_phone_number_placeholder" = "เบอร์โทรศัพท์";
+"edit_person_save_button" = "อัปเดต";
+"edit_person_error_alert_title" = "ข้อผิดพลาด";
+"edit_person_error_alert_message_empty_name" = "ชื่อไม่สามารถเว้นว่างได้";
+
+// Transaction Detail Screen
+"transaction_detail_type_lent" = "ให้ยืม";
+"transaction_detail_type_borrowed" = "ยืม";
+"transaction_detail_no_description" = "ไม่มีคำอธิบาย";
+"transaction_detail_no_due_date" = "ไม่มีวันครบกำหนด";
+"transaction_detail_status_paid" = "ชำระแล้ว";
+"transaction_detail_status_unpaid" = "ยังไม่ชำระ";
+"transaction_detail_due_date_overdue" = "ยังไม่ชำระ (เกินกำหนด)";
+"transaction_detail_created_at_label" = "สร้างเมื่อ";
+"transaction_detail_description_label" = "คำอธิบาย";
+"transaction_detail_due_date_label" = "วันครบกำหนด";
+"transaction_detail_status_label" = "สถานะ";
+"transaction_detail_mark_as_paid_button" = "ทำเครื่องหมายว่าชำระแล้ว";
+"transaction_detail_mark_as_unpaid_button" = "ทำเครื่องหมายว่ายังไม่ชำระ";
+
+// Transaction History Screen
+"transaction_history_screen_title" = "ประวัติการทำรายการ";
+"transaction_history_empty_label" = "ยังไม่มีการทำรายการ";
+
+// Transaction History Cell
+"transaction_history_cell_default_person_name" = "ไม่ทราบชื่อ";
+"transaction_history_cell_paid_status" = "ชำระแล้ว";
+"transaction_history_cell_unpaid_status" = "ยังไม่ชำระ";
+"transaction_history_cell_unpaid_overdue_status" = "ยังไม่ชำระ (เกินกำหนด)";
+
+// Setting Screen
+"setting_screen_title" = "การตั้งค่า";
+"setting_account_section" = "บัญชี";
+"setting_app_preference_section" = "การตั้งค่าของแอป";
+"setting_notification_label" = "การแจ้งเตือน";
+"setting_language_label" = "ภาษา";
+"setting_about_section" = "เกี่ยวกับ";
+"setting_privacy_label" = "นโยบายความเป็นส่วนตัว";
+"setting_contact_us_label" = "ติดต่อเรา";
+"setting_signout_button" = "ออกจากระบบ";
+
+// Account Screen
+"account_screen_title" = "บัญชี";
+"account_edit_details_label" = "แก้ไขรายละเอียดบัญชี";
+"account_change_password_label" = "เปลี่ยนรหัสผ่าน";
+"account_delete_account_label" = "ลบบัญชี";
+"account_update_success_title" = "อัปเดตสำเร็จ";
+"account_update_success_message" = "ข้อมูลได้รับการอัปเดตเรียบร้อยแล้ว";
+
+// Edit Account Details Screen
+"edit_account_screen_title" = "แก้ไขรายละเอียดบัญชี";
+"edit_account_full_name_label" = "ชื่อเต็ม";
+"edit_account_full_name_placeholder" = "กรอกชื่อเต็ม";
+"edit_account_update_button" = "อัปเดต";
+"edit_account_alert_error_title" = "ข้อผิดพลาด";
+"edit_account_alert_error_message_empty_name" = "ชื่อไม่สามารถเว้นว่างได้";
+
+// Change Password Screen
+"change_password_screen_title" = "เปลี่ยนรหัสผ่าน";
+"change_password_current_password_label" = "รหัสผ่านปัจจุบัน";
+"change_password_current_password_placeholder" = "รหัสผ่านปัจจุบัน";
+"change_password_new_password_label" = "รหัสผ่านใหม่";
+"change_password_new_password_placeholder" = "รหัสผ่านใหม่ (ขั้นต่ำ 8 ตัวอักษร)";
+"change_password_confirm_password_label" = "ยืนยันรหัสผ่านใหม่";
+"change_password_confirm_password_placeholder" = "กรอกรหัสผ่านใหม่อีกครั้ง";
+"change_password_update_button" = "อัปเดตรหัสผ่าน";
+"change_password_alert_error_title" = "ข้อผิดพลาด";
+"change_password_alert_error_message_mismatch" = "รหัสผ่านไม่ตรงกัน";
+"change_password_alert_success_title" = "สำเร็จ";
+"change_password_alert_success_message" = "รหัสผ่านของคุณได้รับการเปลี่ยนเรียบร้อยแล้ว";
