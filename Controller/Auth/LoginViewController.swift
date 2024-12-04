@@ -9,6 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     // MARK: - Varibles
+    var viewModel: LoginViewModelProtocol
     
     // MARK: - UI Components
     var appNameLabel: UILabel = {
@@ -37,7 +38,8 @@ class LoginViewController: UIViewController {
     }()
     
     // MARK: - Initializer
-    init() {
+    init(viewModel: LoginViewModelProtocol = LoginViewModel()) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,6 +51,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        viewModel.delegate = self
     }
     
     // MARK: - UI Setup
@@ -58,7 +61,6 @@ class LoginViewController: UIViewController {
         let textfieldStack: UIStackView = UIStackView(arrangedSubviews: [
             createTextFieldRow(title: String(localized: "login_email_label"), field: emailTextField),
             createTextFieldRow(title: String(localized: "login_password_label"), field: passwordTextField),
-            loginButton,
             loginButton,
             noAccountButton
         ])
@@ -89,9 +91,22 @@ class LoginViewController: UIViewController {
             return
         }
         
+        viewModel.login(email: email, password: password)
     }
     
     @objc private func signUpButtonTapped(_ sender: UIButton) {
-        
+        let signUpViewController = SignUpViewController()
+        navigationController?.pushViewController(signUpViewController, animated: true)
+    }
+}
+
+extension LoginViewController: LoginViewModelDelegate {
+    func showAlert(with title: String, message: String) {
+        presentAlert(title: title, message: message)
+    }
+    
+    func navigateToHome() {
+        let mainViewController = UINavigationController(rootViewController: MainViewController())
+        setRootViewController(mainViewController)
     }
 }
