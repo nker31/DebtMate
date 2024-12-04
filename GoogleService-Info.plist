@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCJjk00TqSYoYh4OrHUVP3rr_6s5c1qVt8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1005067395218</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>NathatK.DebtMate</string>
+	<key>PROJECT_ID</key>
+	<string>lendpal-7052b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lendpal-7052b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1005067395218:ios:3e742ff53f60c8a019c64b</string>
+</dict>
+</plist>
