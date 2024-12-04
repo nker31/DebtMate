@@ -33,7 +33,7 @@ extension UIViewController {
         }
     }
     
-    func showAlert(title: String, message: String) {
+    func presentAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "OK", style: .default)
