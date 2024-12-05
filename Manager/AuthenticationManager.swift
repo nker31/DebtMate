@@ -10,6 +10,8 @@ import FirebaseAuth
 import FirebaseFirestore
 
 protocol AuthenticationManagerProtocol {
+    var userSession: FirebaseAuth.User? { get }
+    var currentUser: User? { get }
     func login(email: String, password: String) async throws
     func signUp(profileImage: UIImage?, fullName: String, email: String, password: String) async throws
     func signOut() throws
@@ -21,8 +23,8 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
     private let auth: Auth
     private let firestore: Firestore
     private let userDataStoringManager: UserDataStoringManagerProtocol
-    private var userSession: FirebaseAuth.User?
-    private(set) var currentUser: User?
+    var userSession: FirebaseAuth.User?
+    var currentUser: User?
     
     private init(auth: Auth = Auth.auth(),
                  firestore: Firestore = Firestore.firestore(),
