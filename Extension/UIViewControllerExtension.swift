@@ -40,4 +40,23 @@ extension UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    func setupImagePickerMenu(button: UIButton,
+                              imagePickerManager: ImagePickerManagerController,
+                              delegate: ImagePickerManagerControllerDelegate) {
+        imagePickerManager.delegate = delegate
+        
+        let chooseFromLibraryAction = UIAction(title: String(localized: "image_picker_menu_choose_from_library"), image: UIImage(systemName: "photo.on.rectangle.angled")) { _ in
+            imagePickerManager.presentImagePicker(viewController: self, sourceType: .photoLibrary)
+        }
+        
+        let takePhotoAction = UIAction(title: String(localized: "image_picker_menu_take_photo"), image: UIImage(systemName: "camera")) { _ in
+            imagePickerManager.presentImagePicker(viewController: self, sourceType: .camera)
+        }
+        
+        let menu = UIMenu(title: String(localized: "image_picker_menu_title"), children: [chooseFromLibraryAction, takePhotoAction])
+        
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
+    }
 }
