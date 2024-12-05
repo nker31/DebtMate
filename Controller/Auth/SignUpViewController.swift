@@ -9,6 +9,8 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     // MARK: - Varibles
+    private var viewModel: SignUpViewModelProtocol
+    private var imagePickerImager: ImagePickerManagerController
     
     // MARK: - UI Components
     let profileImageView: UIImageView =  {
@@ -65,8 +67,17 @@ class SignUpViewController: UIViewController {
         return button
     }()
     
+    private let activityIndicator = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     // MARK: - Initializer
-    init() {
+    init(viewModel: SignUpViewModelProtocol = SignUpViewModel(),
+         imagePickerManager: ImagePickerManagerController = ImagePickerManagerController()) {
+        self.imagePickerImager = imagePickerManager
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -79,6 +90,10 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
+        viewModel.delegate = self
+        setupImagePickerMenu(button: profileImageButton,
+                             imagePickerManager: imagePickerImager,
+                             delegate: self)
     }
     
     // MARK: - UI Setup
@@ -103,6 +118,7 @@ class SignUpViewController: UIViewController {
         view.addSubview(profileImageButton)
         view.addSubview(textfieldStack)
         view.addSubview(signUpButton)
+        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -122,7 +138,10 @@ class SignUpViewController: UIViewController {
             signUpButton.topAnchor.constraint(equalTo: textfieldStack.bottomAnchor, constant: 20),
             signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            signUpButton.heightAnchor.constraint(equalToConstant: 48)
+            signUpButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -133,10 +152,73 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Selectors
     @objc func onCheckBoxTapped() {
-        
+        if viewModel.isAcceptedTerms {
+            viewModel.acceptTermsAndConditions(isAccepted: false)
+        } else {
+            let termsAndConditionConntroller = TermsAndConditionsViewController()
+            termsAndConditionConntroller.modalPresentationStyle = .fullScreen
+            termsAndConditionConntroller.delegate = self
+            
+            present(termsAndConditionConntroller, animated: true)
+        }
     }
     
     @objc func onTapSignUpButton() {
-
+        guard let fullname = fullNameTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let confirmPassword = confirmTextField.text else {
+            return
+        }
+        
+        self.viewModel.signUp(fullName: fullname,
+                                 email: email,
+                                 password: password,
+                                 confirmPassword: confirmPassword)
     }
 }
+
+extension SignUpViewController: SignUpViewModelDelegate {
+    func showAlert(title: String, message: String) {
+        presentAlert(title: title, message: message)
+    }
+    
+    func didAcceptTermsAndConditions(isAccepted: Bool) {
+        let image = isAccepted ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        policyCheckBoxButton.setImage(image, for: .normal)
+        signUpButton.isEnabled = isAccepted
+        signUpButton.alpha = isAccepted ? 1 : 0.5
+    }
+    
+    func didStartSignUp() {
+        activityIndicator.startAnimating()
+    }
+    
+    func didFinishSignUp() {
+        activityIndicator.stopAnimating()
+        let mainViewController = UINavigationController(rootViewController: MainViewController())
+        setRootViewController(mainViewController)
+    }
+    
+    func didFailSignUp() {
+        activityIndicator.stopAnimating()
+    }
+}
+
+extension SignUpViewController: ImagePickerManagerControllerDelegate {
+    func imagePicked(_ image: UIImage) {
+        profileImageView.image = image
+        viewModel.setSelectedImage(image: image)
+    }
+}
+
+extension SignUpViewController: TermsAndConditionsViewControllerDelegate {
+    func didTapAccept() {
+        viewModel.acceptTermsAndConditions(isAccepted: true)
+    }
+    
+    func didTapReject() {
+        viewModel.acceptTermsAndConditions(isAccepted: false)
+    }
+}
+
