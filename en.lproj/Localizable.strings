@@ -27,6 +27,18 @@
 "signup_terms_and_condition_label" = "I accept the Terms & Conditions";
 "signup_button" = "Sign Up";
 
+// Sign Up Alert
+"signup_invalid_full_name_alert_title" = "Invalid Full Name";
+"signup_invalid_full_name_alert_message" = "Please enter a valid full name with 3 to 25 characters.";
+"signup_invalid_email_alert_title" = "Invalid Email";
+"signup_invalid_email_alert_message" = "Please enter a valid email address.";
+"signup_invalid_password_alert_title" = "Invalid Password";
+"signup_invalid_password_alert_message" = "Password must be between 8 and 12 characters.";
+"signup_password_mismatch_alert_title" = "Password Mismatch";
+"signup_password_mismatch_alert_message" = "The confirmation password does not match the original password.";
+"signup_failed_alert_title" = "Sign-Up Failed";
+"signup_failed_alert_message" = "An error occurred during sign-up. Please try again later.";
+
 // Terms and Conditions Screen
 "terms_conditions_screen_title" = "Terms and Conditions";
 "terms_conditions_reject_button" = "Reject";

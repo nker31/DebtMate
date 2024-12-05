@@ -27,6 +27,18 @@
 "signup_terms_and_condition_label" = "ฉันยอมรับข้อกำหนดและเงื่อนไข";
 "signup_button" = "สมัครสมาชิก";
 
+// Sign Up Alert
+"signup_invalid_full_name_alert_title" = "ชื่อเต็มไม่ถูกต้อง";
+"signup_invalid_full_name_alert_message" = "กรุณากรอกชื่อเต็มที่ถูกต้อง ความยาวระหว่าง 3 ถึง 25 ตัวอักษร";
+"signup_invalid_email_alert_title" = "อีเมลไม่ถูกต้อง";
+"signup_invalid_email_alert_message" = "กรุณากรอกที่อยู่อีเมลที่ถูกต้อง";
+"signup_invalid_password_alert_title" = "รหัสผ่านไม่ถูกต้อง";
+"signup_invalid_password_alert_message" = "รหัสผ่านต้องมีความยาวระหว่าง 8 ถึง 12 ตัวอักษร";
+"signup_password_mismatch_alert_title" = "รหัสผ่านไม่ตรงกัน";
+"signup_password_mismatch_alert_message" = "รหัสผ่านยืนยันไม่ตรงกับรหัสผ่านเดิม";
+"signup_failed_alert_title" = "การลงทะเบียนล้มเหลว";
+"signup_failed_alert_message" = "เกิดข้อผิดพลาดระหว่างการลงทะเบียน กรุณาลองใหม่อีกครั้ง";
+
 // Terms and Conditions Screen
 "terms_conditions_screen_title" = "ข้อกำหนดและเงื่อนไข";
 "terms_conditions_reject_button" = "ปฏิเสธ";
