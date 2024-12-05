@@ -182,3 +182,8 @@
 "change_password_alert_error_message_mismatch" = "รหัสผ่านไม่ตรงกัน";
 "change_password_alert_success_title" = "สำเร็จ";
 "change_password_alert_success_message" = "รหัสผ่านของคุณได้รับการเปลี่ยนเรียบร้อยแล้ว";
+
+// Image Picker Menu
+"image_picker_menu_title" = "แหล่งที่มาของรูปภาพ";
+"image_picker_menu_choose_from_library" = "เลือกจากคลังรูปภาพ";
+"image_picker_menu_take_photo" = "ถ่ายภาพ";

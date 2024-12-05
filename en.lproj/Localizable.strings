@@ -183,3 +183,8 @@
 "change_password_alert_error_message_mismatch" = "Passwords do not match.";
 "change_password_alert_success_title" = "Success";
 "change_password_alert_success_message" = "Your password has been successfully changed.";
+
+// Image Picker Menu
+"image_picker_menu_title" = "Photo Source";
+"image_picker_menu_choose_from_library" = "Choose from Library";
+"image_picker_menu_take_photo" = "Take Photo";
