@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 protocol AuthenticationManagerProtocol {
     var userSession: FirebaseAuth.User? { get }
-    var currentUser: User? { get }
     func login(email: String, password: String) async throws
     func signUp(profileImage: UIImage?, fullName: String, email: String, password: String) async throws
     func signOut() throws
@@ -23,8 +22,9 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
     private let auth: Auth
     private let firestore: Firestore
     private let userDataStoringManager: UserDataStoringManagerProtocol
-    var userSession: FirebaseAuth.User?
-    var currentUser: User?
+    var userSession: FirebaseAuth.User? {
+        auth.currentUser
+    }
     
     private init(auth: Auth = Auth.auth(),
                  firestore: Firestore = Firestore.firestore(),
@@ -32,7 +32,6 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
         self.auth = auth
         self.firestore = firestore
         self.userDataStoringManager = userDataStoringManager
-        self.userSession = auth.currentUser
         print("AuthenticationManager initialized with user ID: \(String(describing: userSession?.uid))")
     }
     
@@ -40,9 +39,6 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
         let authResult = try await auth.signIn(withEmail: email, password: password)
         let user = authResult.user
         print("Authentication Manager: User signed in with ID: \(user.uid)")
-        
-        self.currentUser = try await userDataStoringManager.fetchUserData(userID: user.uid)
-        print("Authentication Manager: Current User = \(String(describing: currentUser))")
     }
     
     func signUp(profileImage: UIImage?, fullName: String, email: String, password: String) async throws {
@@ -57,14 +53,12 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
             profileImage: profileImage
         )
         
-        self.currentUser = try await userDataStoringManager.fetchUserData(userID: user.uid)
         print("Authentication Manager: User data saved successfully for ID: \(user.uid)")
     }
     
     func signOut() throws {
         try auth.signOut()
-        self.userSession = nil
-        self.currentUser = nil
+        print("Authentication Manager: current userSession: \(String(describing: userSession))")
         print("Authentication Manager: User signed out successfully")
     }
 }
