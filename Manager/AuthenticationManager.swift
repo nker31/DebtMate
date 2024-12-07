@@ -36,24 +36,30 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
     }
     
     func login(email: String, password: String) async throws {
-        let authResult = try await auth.signIn(withEmail: email, password: password)
-        let user = authResult.user
-        print("Authentication Manager: User signed in with ID: \(user.uid)")
+        do {
+            let authResult = try await auth.signIn(withEmail: email, password: password)
+            print("Authentication Manager: User signed in succesfully")
+        } catch let error as NSError {
+            throw error.toAuthenticationError()
+        }
     }
     
     func signUp(profileImage: UIImage?, fullName: String, email: String, password: String) async throws {
-        let authResult = try await auth.createUser(withEmail: email, password: password)
-        let user = authResult.user
-        print("Authentication Manager: User signed up with ID: \(user.uid)")
-        
-        try await userDataStoringManager.storeUserData(
-            userID: user.uid,
-            fullName: fullName,
-            email: email,
-            profileImage: profileImage
-        )
-        
-        print("Authentication Manager: User data saved successfully for ID: \(user.uid)")
+        do {
+            let authResult = try await auth.createUser(withEmail: email, password: password)
+            print("Authentication Manager: User signed up with ID: \(authResult.user.uid)")
+            
+            try await userDataStoringManager.storeUserData(
+                userID: authResult.user.uid,
+                fullName: fullName,
+                email: email,
+                profileImage: profileImage
+            )
+            
+            print("Authentication Manager: User data saved successfully")
+        } catch let error as NSError {
+            throw error.toAuthenticationError()
+        }
     }
     
     func signOut() throws {
