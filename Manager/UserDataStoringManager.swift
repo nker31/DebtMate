@@ -10,30 +10,32 @@ import FirebaseStorage
 import FirebaseFirestore
 
 protocol UserDataStoringManagerProtocol {
-    func fetchUserData(userID: String) async throws -> User
+    var currentUser: User? { get }
+    func fetchUserData(userID: String) async throws
     func storeUserData(userID: String, fullName: String, email: String, profileImage: UIImage?) async throws
 }
 
 final class UserDataStoringManager: UserDataStoringManagerProtocol {
     static let shared = UserDataStoringManager()
     
+    var currentUser: User?
     private let firestore: Firestore
     private let storage: Storage
     
-    init(firestore: Firestore = Firestore.firestore(),
+    private init(firestore: Firestore = Firestore.firestore(),
          storage: Storage = Storage.storage()) {
         self.firestore = firestore
         self.storage = storage
     }
     
     // MARK: - Fetch User Data
-    func fetchUserData(userID: String) async throws -> User {
+    func fetchUserData(userID: String) async throws {
         do {
             let userSnapshot = try await firestore.collection("users").document(userID).getDocument()
             guard let data = userSnapshot.data() else {
                 throw DataStoringError.fetchDataFailed(reason: "No data found for user ID: \(userID)")
             }
-            return try decodeUserData(data)
+            self.currentUser = try decodeUserData(data)
         } catch let error as DataStoringError {
             throw error
         } catch {
