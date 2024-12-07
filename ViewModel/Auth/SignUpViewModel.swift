@@ -61,11 +61,16 @@ class SignUpViewModel: SignUpViewModelProtocol {
         Task {
             do {
                 try await authManager.signUp(profileImage: selectedImage, fullName: fullName, email: email, password: password)
-                await MainActor.run {
+                await MainActor.run { [weak self] in
                     delegate?.didFinishSignUp()
                 }
+            } catch let error as AuthenticationError {
+                await MainActor.run { [weak self] in
+                    delegate?.didFailSignUp()
+                    delegate?.showAlert(title: String(localized: "signup_failed_alert_title"), message: error.errorDescription ?? String(localized: "signup_failed_alert_message"))
+                }
             } catch {
-                await MainActor.run {
+                await MainActor.run { [weak self] in
                     delegate?.didFailSignUp()
                     delegate?.showAlert(title: String(localized: "signup_failed_alert_title"), message: String(localized: "signup_failed_alert_message"))
                 }
