@@ -202,3 +202,9 @@
 "authentication_error_wrong_password" = "The password is incorrect. Please try again.";
 "authentication_error_network_error" = "There was a network error. Please check your connection and try again.";
 
+// Data Storing Error
+"data_storing_error_fetch_data_failed" = "Failed to fetch user data, Please try again later";
+"data_storing_error_saving_user_data_failed" = "Failed to save user data, Please try again later";
+"data_storing_error_decoding_failed" = "Failed to decode user data.";
+"data_storing_error_image_compression_failed" = "Image compression failed.";
+"data_storing_error_upload_failed" = "Image upload failed, Please try again later";

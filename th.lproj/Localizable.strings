@@ -200,3 +200,10 @@
 "authentication_error_user_not_found" = "ไม่พบผู้ใช้ที่ตรงกับข้อมูลที่ให้ไว้";
 "authentication_error_wrong_password" = "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
 "authentication_error_network_error" = "เกิดข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่อและลองใหม่อีกครั้ง";
+
+// Data Storing Error
+"data_storing_error_fetch_data_failed" = "ไม่สามารถดึงข้อมูลผู้ใช้ได้ โปรดลองอีกครั้งในภายหลัง";
+"data_storing_error_saving_user_data_failed" = "ไม่สามารถบันทึกข้อมูลผู้ใช้ได้ โปรดลองอีกครั้งในภายหลัง";
+"data_storing_error_decoding_failed" = "ไม่สามารถถอดรหัสข้อมูลผู้ใช้ได้";
+"data_storing_error_image_compression_failed" = "การบีบอัดรูปภาพล้มเหลว";
+"data_storing_error_upload_failed" = "การอัปโหลดรูปภาพล้มเหลว โปรดลองอีกครั้งในภายหลัง";
