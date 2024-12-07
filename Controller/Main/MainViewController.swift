@@ -216,7 +216,8 @@ class MainViewController: UIViewController {
     }
     
     @objc func tapAddButton() {
-        print("MainViewController: tapAddButton")
+        let addTransactionViewController = AddTransactionViewController()
+        navigationController?.pushViewController(addTransactionViewController, animated: true)
     }
 }
 
