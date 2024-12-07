@@ -119,7 +119,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            print("SettingViewController: tap account")
+            let accountViewController = AccountDetailViewController()
+            navigationController?.pushViewController(accountViewController, animated: true)
         case 1:
             if indexPath.row == 1 {
                 print("SettingViewController: tap language")
