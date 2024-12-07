@@ -9,6 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     // MARK: - Varibles
+    var viewModel: MainViewModelProtocol
     
     // MARK: - UI Components
     let headerView: UIView = {
@@ -96,8 +97,15 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    private let activityIndicator = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     // MARK: - Initializer
-    init() {
+    init(viewModel: MainViewModelProtocol = MainViewModel()) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -110,6 +118,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
+        viewModel.delegate = self
+        viewModel.fetchUserData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,9 +138,11 @@ class MainViewController: UIViewController {
     // MARK: - UI Setup
     func setupUI() {
         view.backgroundColor = .systemBackground
+        
         view.addSubview(headerView)
         view.addSubview(tableView)
         view.addSubview(addButton)
+        view.addSubview(activityIndicator)
         
         headerView.addSubview(dividerLine)
         headerView.addSubview(leftStackView)
@@ -172,6 +184,9 @@ class MainViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 60),
             addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -192,7 +207,8 @@ class MainViewController: UIViewController {
     
     // MARK: - Selectors
     @objc func navigateToSetting() {
-        print("MainViewController: navigateToSetting")
+        let settingViewController = SettingViewController()
+        navigationController?.pushViewController(settingViewController, animated: true)
     }
     
     @objc func navigateToHistory() {
@@ -201,5 +217,24 @@ class MainViewController: UIViewController {
     
     @objc func tapAddButton() {
         print("MainViewController: tapAddButton")
+    }
+}
+
+extension MainViewController: MainViewModelDelegate {
+    func showAlert(title: String, message: String) {
+        presentAlert(title: title, message: message)
+    }
+    
+    func didStartFetchingUserData() {
+        activityIndicator.startAnimating()
+    }
+    
+    func didFinishFetchingUserData() {
+        activityIndicator.stopAnimating()
+        tableView.reloadData()
+    }
+    
+    func didFaiedFetchingUserData() {
+        activityIndicator.stopAnimating()
     }
 }
