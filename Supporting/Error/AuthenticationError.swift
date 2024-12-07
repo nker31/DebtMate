@@ -19,17 +19,17 @@ enum AuthenticationError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidCredential:
-            return "Your email or password seems incorrect. Please try again."
+            return String(localized: "authentication_error_invalid_credential")
         case .invalidEmail:
-            return "The email address is invalid."
+            return String(localized: "authentication_error_invalid_email")
         case .emailAlreadyInUse:
-            return "The email address is already in use."
+            return String(localized: "authentication_error_email_already_in_use")
         case .userNotFound:
-            return "No user found with the provided credentials."
+            return String(localized: "authentication_error_user_not_found")
         case .wrongPassword:
-            return "The password is incorrect. Please try again."
+            return String(localized: "authentication_error_wrong_password")
         case .networkError:
-            return "There was a network error. Please check your connection and try again."
+            return String(localized: "authentication_error_network_error")
         case .unknownError(let message):
             return message
         }
