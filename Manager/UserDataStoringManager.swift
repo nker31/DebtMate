@@ -32,14 +32,15 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
     func fetchUserData(userID: String) async throws {
         do {
             let userSnapshot = try await firestore.collection("users").document(userID).getDocument()
+            
             guard let data = userSnapshot.data() else {
-                throw DataStoringError.fetchDataFailed(reason: "No data found for user ID: \(userID)")
+                throw DataStoringError.fetchDataFailed
             }
+            
             self.currentUser = try decodeUserData(data)
-        } catch let error as DataStoringError {
-            throw error
         } catch {
-            throw DataStoringError.fetchDataFailed(reason: error.localizedDescription)
+            print("UserDataStoringManager: Error fetching user data with error \(error.localizedDescription)")
+            throw DataStoringError.fetchDataFailed
         }
     }
     
@@ -71,7 +72,8 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
             try await firestore.collection("users").document(userID).setData(encodedUser)
             print("UserDataStoringManager: User data saved/updated successfully for userID: \(userID)")
         } catch {
-            throw DataStoringError.savingUserDataFailed(reason: error.localizedDescription)
+            print("UserDataStoringManager: Error saving user data with error \(error.localizedDescription)")
+            throw DataStoringError.savingUserDataFailed
         }
     }
     
@@ -85,7 +87,8 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
             _ = try await storageRef.putDataAsync(imageData)
             return try await storageRef.downloadURL().absoluteString
         } catch {
-            throw DataStoringError.uploadFailed(reason: error.localizedDescription)
+            print("UserDataStoringManager: Error uploading image with error \(error.localizedDescription)")
+            throw DataStoringError.uploadFailed
         }
     }
     
@@ -93,6 +96,7 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
         do {
             return try Firestore.Decoder().decode(User.self, from: data)
         } catch {
+            print("UserDataStoringManager: Error decoding User with error \(error.localizedDescription)")
             throw DataStoringError.decodingFailed
         }
     }

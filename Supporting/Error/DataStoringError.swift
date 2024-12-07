@@ -8,19 +8,24 @@
 import Foundation
 
 enum DataStoringError: LocalizedError {
-    case fetchDataFailed(reason: String)
-    case savingUserDataFailed(reason: String)
+    case fetchDataFailed
+    case savingUserDataFailed
     case decodingFailed
     case imageCompressionFailed
-    case uploadFailed(reason: String)
+    case uploadFailed
     
     var errorDescription: String? {
         switch self {
-        case .fetchDataFailed(let reason): return "Failed to fetch user data: \(reason)"
-        case .savingUserDataFailed(let reason): return "Failed to save user data: \(reason)"
-        case .decodingFailed: return "Failed to decode user data."
-        case .imageCompressionFailed: return "Image compression failed."
-        case .uploadFailed(let reason): return "Image upload failed: \(reason)"
+        case .fetchDataFailed:
+            return "Failed to fetch user data, Please try again later"
+        case .savingUserDataFailed:
+            return "Failed to save user data, Please try again later"
+        case .decodingFailed:
+            return "Failed to decode user data."
+        case .imageCompressionFailed:
+            return "Image compression failed."
+        case .uploadFailed:
+            return "Image upload failed, Please try again later"
         }
     }
 }
