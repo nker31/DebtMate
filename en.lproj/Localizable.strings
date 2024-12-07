@@ -14,6 +14,10 @@
 "login_button" = "Login";
 "login_no_account_button" = "Don't have an account? Sign Up";
 
+// Login Alert
+"login_failed_alert_title" = "Log In Failed";
+"login_generic_error_message" = "An error occurred during log in. Please try again later.";
+
 // Sign Up Screen
 "signup_screen_title" = "Sign Up";
 "signup_full_name_label" = "Full Name";
@@ -189,3 +193,12 @@
 "image_picker_menu_title" = "Photo Source";
 "image_picker_menu_choose_from_library" = "Choose from Library";
 "image_picker_menu_take_photo" = "Take Photo";
+
+// Authentication Error
+"authentication_error_invalid_credential" = "Your email or password seems incorrect. Please try again.";
+"authentication_error_invalid_email" = "The email address is invalid.";
+"authentication_error_email_already_in_use" = "The email address is already in use.";
+"authentication_error_user_not_found" = "No user found with the provided credentials.";
+"authentication_error_wrong_password" = "The password is incorrect. Please try again.";
+"authentication_error_network_error" = "There was a network error. Please check your connection and try again.";
+

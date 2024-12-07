@@ -14,6 +14,10 @@
 "login_button" = "เข้าสู่ระบบ";
 "login_no_account_button" = "ยังไม่มีบัญชี? สมัครสมาชิก";
 
+// Login Alert
+"login_failed_alert_title" = "เข้าสู่ระบบล้มเหลว";
+"login_generic_error_message" = "เกิดข้อผิดพลาดระหว่างการเข้าสู่ระบบ กรุณาลองใหม่อีกครั้งในภายหลัง";
+
 // Sign Up Screen
 "signup_screen_title" = "สมัครสมาชิก";
 "signup_full_name_label" = "ชื่อเต็ม";
@@ -188,3 +192,11 @@
 "image_picker_menu_title" = "แหล่งที่มาของรูปภาพ";
 "image_picker_menu_choose_from_library" = "เลือกจากคลังรูปภาพ";
 "image_picker_menu_take_photo" = "ถ่ายภาพ";
+
+// Authentication Error
+"authentication_error_invalid_credential" = "อีเมลหรือรหัสผ่านของคุณไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
+"authentication_error_invalid_email" = "ที่อยู่อีเมลไม่ถูกต้อง";
+"authentication_error_email_already_in_use" = "ที่อยู่อีเมลนี้ถูกใช้งานแล้ว";
+"authentication_error_user_not_found" = "ไม่พบผู้ใช้ที่ตรงกับข้อมูลที่ให้ไว้";
+"authentication_error_wrong_password" = "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
+"authentication_error_network_error" = "เกิดข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่อและลองใหม่อีกครั้ง";
