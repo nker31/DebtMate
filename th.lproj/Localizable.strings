@@ -62,6 +62,7 @@
 "add_transaction_description_placeholder" = "คำอธิบาย";
 "add_transaction_due_date_label" = "วันครบกำหนด";
 "add_transaction_add_button" = "เพิ่ม";
+"add_transaction_menu_title" = "ตัวเลิอก";
 "add_transaction_add_manually_button" = "เพิ่มด้วยตนเอง";
 "add_transaction_select_contact_button" = "เลือกจากรายชื่อผู้ติดต่อ";
 "add_transaction_select_existing_button" = "เลือกจากรายชื่อที่มีอยู่";
