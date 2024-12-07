@@ -39,12 +39,16 @@ class LoginViewModel: LoginViewModelProtocol {
         Task {
             do {
                 try await authManager.login(email: email, password: password)
-                DispatchQueue.main.async { [weak self] in
+                await MainActor.run { [weak self] in
                     self?.delegate?.navigateToHome()
                 }
+            } catch let error as AuthenticationError {
+                await MainActor.run { [weak self] in
+                    self?.delegate?.showAlert(with: String(localized: "login_failed_alert_title"), message: error.errorDescription ?? String(localized: "login_generic_error_message"))
+                }
             } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.delegate?.showAlert(with: "Login Failure", message: "Password or email is incorrect!")
+                await MainActor.run { [weak self] in
+                    self?.delegate?.showAlert(with: String(localized: "login_failed_alert_title"), message: String(localized: "login_generic_error_message"))
                 }
             }
         }
