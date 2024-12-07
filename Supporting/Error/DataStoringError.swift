@@ -17,15 +17,15 @@ enum DataStoringError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fetchDataFailed:
-            return "Failed to fetch user data, Please try again later"
+            return String(localized: "data_storing_error_fetch_data_failed")
         case .savingUserDataFailed:
-            return "Failed to save user data, Please try again later"
+            return String(localized: "data_storing_error_saving_user_data_failed")
         case .decodingFailed:
-            return "Failed to decode user data."
+            return String(localized: "data_storing_error_decoding_failed")
         case .imageCompressionFailed:
-            return "Image compression failed."
+            return String(localized: "data_storing_error_image_compression_failed")
         case .uploadFailed:
-            return "Image upload failed, Please try again later"
+            return String(localized: "data_storing_error_upload_failed")
         }
     }
 }
