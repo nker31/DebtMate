@@ -8,6 +8,7 @@
 import Foundation
 
 enum DataStoringError: LocalizedError {
+    case currentUserNotFound
     case fetchDataFailed
     case savingUserDataFailed
     case decodingFailed
@@ -16,6 +17,8 @@ enum DataStoringError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
+        case .currentUserNotFound:
+            return String(localized: "data_storing_error_current_user_not_found")
         case .fetchDataFailed:
             return String(localized: "data_storing_error_fetch_data_failed")
         case .savingUserDataFailed:
