@@ -207,3 +207,4 @@
 "data_storing_error_decoding_failed" = "ไม่สามารถถอดรหัสข้อมูลผู้ใช้ได้";
 "data_storing_error_image_compression_failed" = "การบีบอัดรูปภาพล้มเหลว";
 "data_storing_error_upload_failed" = "การอัปโหลดรูปภาพล้มเหลว โปรดลองอีกครั้งในภายหลัง";
+"data_storing_error_current_user_not_found" = "ไม่พบผู้ใช้งานปัจจุบัน กรุณาเข้าสู่ระบบก่อนทำรายการนี้";
