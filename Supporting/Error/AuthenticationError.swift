@@ -15,6 +15,7 @@ enum AuthenticationError: LocalizedError {
     case wrongPassword
     case networkError
     case passwordUpdateFailed
+    case samePassword
     case unknownError(message: String)
     
     var errorDescription: String? {
@@ -33,6 +34,8 @@ enum AuthenticationError: LocalizedError {
             return String(localized: "authentication_error_network_error")
         case .passwordUpdateFailed:
             return String(localized: "authentication_error_password_update_failed")
+        case .samePassword:
+            return String(localized: "authentication_error_same_password")
         case .unknownError(let message):
             return message
         }
