@@ -13,6 +13,8 @@ protocol UserDataStoringManagerProtocol {
     var currentUser: User? { get }
     func fetchUserData(userID: String) async throws
     func storeUserData(userID: String, fullName: String, email: String, profileImage: UIImage?) async throws
+    func updateUserData(updatedUser: User) async throws
+    func updateUserData(updatedImage: UIImage, updatedUser: User) async throws
 }
 
 final class UserDataStoringManager: UserDataStoringManagerProtocol {
@@ -63,6 +65,48 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
         )
         
         try await saveUserDataToFirestore(user: newUser, userID: userID)
+    }
+    
+    // MARK: - Update User Data
+    func updateUserData(updatedUser: User) async throws {
+        let userRef = firestore.collection("users").document(updatedUser.userID)
+        
+        do {
+            try userRef.setData(from: updatedUser)
+            print("UserDataStoringManager: Updated user data for userID: \(updatedUser.userID)")
+            self.currentUser = updatedUser
+        } catch {
+            let errorMessage = "UserDataStoringManager: Error updating user data: \(error.localizedDescription)"
+            print(errorMessage)
+            throw DataStoringError.savingUserDataFailed
+        }
+    }
+
+    func updateUserData(updatedImage: UIImage, updatedUser: User) async throws {
+        var newImageURL: String?
+        
+        do {
+            let imageName = "person_\(updatedUser.userID)"
+            newImageURL = try await uploadProfileImage(image: updatedImage, imageName: imageName)
+        } catch {
+            let errorMessage = "UserDataStoringManager: Failed to upload image for userID: \(updatedUser.userID)"
+            print(errorMessage)
+            throw DataStoringError.uploadFailed
+        }
+        
+        var updatedUser: User = updatedUser
+        updatedUser.imageURL = newImageURL
+        
+        do {
+            let userRef = firestore.collection("users").document(updatedUser.userID)
+            try userRef.setData(from: updatedUser)
+            print("UserDataStoringManager: Updated user data and image for userID: \(updatedUser.userID)")
+            self.currentUser = updatedUser
+        } catch {
+            let errorMessage = "UserDataStoringManager: Failed to update person data for userID: \(updatedUser.userID)"
+            print(errorMessage)
+            throw DataStoringError.uploadFailed
+        }
     }
     
     // MARK: - Private Methods
