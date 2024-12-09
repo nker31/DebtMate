@@ -132,7 +132,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(accountViewController, animated: true)
         case 1:
             if indexPath.row == 1 {
-                print("SettingViewController: tap language")
+                navigateToSystemSettings()
             }
         case 2:
             if indexPath.row == 0 {

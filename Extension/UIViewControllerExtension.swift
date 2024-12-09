@@ -59,4 +59,12 @@ extension UIViewController {
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
     }
+    
+    func navigateToSystemSettings() {
+        guard let appSetting = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        UIApplication.shared.open(appSetting)
+    }
 }
