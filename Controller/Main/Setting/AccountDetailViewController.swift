@@ -86,7 +86,8 @@ extension AccountDetailViewController: UITableViewDelegate, UITableViewDataSourc
             let editAccountViewController = EditAccountViewController()
             navigationController?.pushViewController(editAccountViewController, animated: true)
         case 1:
-            print("AccountDetailsViewController: tapped change password")
+            let changePasswordViewController = ChangePasswordViewController()
+            navigationController?.pushViewController(changePasswordViewController, animated: true)
         default:
             break
         }
