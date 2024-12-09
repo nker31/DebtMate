@@ -189,6 +189,7 @@
 "change_password_alert_error_message_mismatch" = "รหัสผ่านไม่ตรงกัน";
 "change_password_alert_success_title" = "สำเร็จ";
 "change_password_alert_success_message" = "รหัสผ่านของคุณได้รับการเปลี่ยนเรียบร้อยแล้ว";
+"change_password_alert_failed_title" = "ไม่สามารถอัปเดตรหัสผ่านได้";
 
 // Image Picker Menu
 "image_picker_menu_title" = "แหล่งที่มาของรูปภาพ";
@@ -202,6 +203,7 @@
 "authentication_error_user_not_found" = "ไม่พบผู้ใช้ที่ตรงกับข้อมูลที่ให้ไว้";
 "authentication_error_wrong_password" = "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
 "authentication_error_network_error" = "เกิดข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่อและลองใหม่อีกครั้ง";
+"authentication_error_password_update_failed" = "ไม่สามารถเปลี่ยนรหัสผ่านได้ กรุณาลองอีกครั้งในภายหลัง";
 
 // Data Storing Error
 "data_storing_error_fetch_data_failed" = "ไม่สามารถดึงข้อมูลผู้ใช้ได้ โปรดลองอีกครั้งในภายหลัง";

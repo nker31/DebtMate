@@ -190,6 +190,7 @@
 "change_password_alert_error_message_mismatch" = "Passwords do not match.";
 "change_password_alert_success_title" = "Success";
 "change_password_alert_success_message" = "Your password has been successfully changed.";
+"change_password_alert_failed_title" = "Failed to update password";
 
 // Image Picker Menu
 "image_picker_menu_title" = "Photo Source";
@@ -203,6 +204,7 @@
 "authentication_error_user_not_found" = "No user found with the provided credentials.";
 "authentication_error_wrong_password" = "The password is incorrect. Please try again.";
 "authentication_error_network_error" = "There was a network error. Please check your connection and try again.";
+"authentication_error_password_update_failed" = "Failed to update the password. Please try again later.";
 
 // Data Storing Error
 "data_storing_error_fetch_data_failed" = "Failed to fetch user data, Please try again later";
