@@ -41,6 +41,10 @@ class SettingViewController: UIViewController {
         viewModel.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        reloadAccountCell()
+    }
+    
     // MARK: - UI Setup
     func setupUI() {
         view.backgroundColor = .systemBackground
@@ -57,6 +61,11 @@ class SettingViewController: UIViewController {
     
     func setupNavigationBar() {
         title = String(localized: "setting_screen_title")
+    }
+    
+    private func reloadAccountCell() {
+        let accountCellIndexPath = IndexPath(row: 0, section: 0)
+        settingTableView.reloadRows(at: [accountCellIndexPath], with: .none)
     }
     
     // MARK: - Selectors
