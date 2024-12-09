@@ -10,7 +10,7 @@ import UIKit
 class AccountHeaderView: UIView {
     private let accountImageView: UIImageView = {
         let imageView = CircularImageView(cornerRadius: 45)
-        imageView.image = UIImage(systemName: "person.circle.fill")
+        imageView.image = UIImage(named: "mock-profile")
         return imageView
     }()
     
@@ -75,7 +75,7 @@ class AccountHeaderView: UIView {
         if let imageURL = user.imageURL {
             accountImageView.setImage(imageURL: imageURL)
         } else {
-            accountImageView.image = UIImage(systemName: "person.circle.fill")
+            accountImageView.image = UIImage(named: "mock-profile")
         }
     }
 }
