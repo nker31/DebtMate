@@ -173,6 +173,8 @@
 "edit_account_update_button" = "อัปเดต";
 "edit_account_alert_error_title" = "ข้อผิดพลาด";
 "edit_account_alert_error_message_empty_name" = "ชื่อไม่สามารถเว้นว่างได้";
+"edit_account_success_title" = "อัปเดตสำเร็จ";
+"edit_account_success_message" = "บัญชีของคุณได้รับการอัปเดตเรียบร้อยแล้ว";
 
 // Change Password Screen
 "change_password_screen_title" = "เปลี่ยนรหัสผ่าน";
