@@ -24,4 +24,8 @@ class InputValidator {
         let fullName = fullName.trimmingCharacters(in: .whitespacesAndNewlines)
         return fullName.count >= 3 && fullName.count <= 25
     }
+    
+    static func passwordMatch(_ password: String, confirmPassword: String) -> Bool {
+        return password == confirmPassword
+    }
 }
