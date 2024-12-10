@@ -183,8 +183,8 @@ class AddTransactionViewController: UIViewController {
     }
     
     func setupMenu() {
-        let addManuallyAction = UIAction(title: String(localized: "add_transaction_add_manually_button"), image: UIImage(systemName: "plus")) { _ in
-            print("AddTransactionViewController: add manually tapped")
+        let addManuallyAction = UIAction(title: String(localized: "add_transaction_add_manually_button"), image: UIImage(systemName: "plus")) { [weak self] _ in
+            self?.navigateToAddPersonManually()
         }
         
         let chooseFromContactAction = UIAction(title: String(localized: "add_transaction_select_contact_button"), image: UIImage(systemName: "person.crop.circle.badge.plus")) { _ in
@@ -199,6 +199,11 @@ class AddTransactionViewController: UIViewController {
         
         addLenderBorrowerButton.menu = menu
         addLenderBorrowerButton.showsMenuAsPrimaryAction = true
+    }
+    
+    func navigateToAddPersonManually() {
+        let addPersonManuallyVC = AddManaualPersonViewController()
+        navigationController?.pushViewController(addPersonManuallyVC, animated: true)
     }
     
     // MARK: - Selectors
