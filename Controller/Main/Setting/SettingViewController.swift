@@ -68,8 +68,25 @@ class SettingViewController: UIViewController {
         settingTableView.reloadRows(at: [accountCellIndexPath], with: .none)
     }
     
-    // MARK: - Selectors
+    func showNotificationSettingsAlert() {
+        let alert = UIAlertController(title: String(localized: "notification_permission_denied_title"),
+                                      message: String(localized: "notification_permission_denied_message"),
+                                      preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: String(localized: "alert_cancel_button"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: String(localized: "alert_go_to_settings_button"), style: .default, handler: { [weak self] _ in
+            self?.navigateToSystemSettings()
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
     
+    // MARK: - Selectors
+    @objc func switchChanged(_ sender: UISwitch) {
+        viewModel.toggleNotificationSetting(isEnabled: sender.isOn) { isEnabled in
+            sender.isOn = isEnabled
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -98,6 +115,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.identifier, for: indexPath) as! SwitchTableViewCell
                 cell.textLabel?.text = viewModel.settingSection[indexPath.section].rows[indexPath.row]
+                cell.toggleSwitch.addTarget(self, action: #selector(switchChanged(_:)), for: .touchUpInside)
+                cell.toggleSwitch.isOn = viewModel.isNotificationEnabled
                 cell.textLabel?.textColor = .label
                 return cell
             } else {
@@ -149,6 +168,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension SettingViewController: SettingViewModelDelegate {
+    func didSettingNotifactionPermissionDenied() {
+        showNotificationSettingsAlert()
+    }
+    
     func showAlert(title: String, message: String) {
         presentAlert(title: title, message: message)
     }
