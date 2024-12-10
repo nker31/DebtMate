@@ -26,6 +26,10 @@ class InputValidator {
     }
     
     static func validatePhoneNumber(_ phoneNumber: String) -> Bool {
+        guard !phoneNumber.isEmpty else {
+            return true
+        }
+        
         let phoneNumber = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
         return phoneNumber.count >= 7 && phoneNumber.count <= 12
     }
