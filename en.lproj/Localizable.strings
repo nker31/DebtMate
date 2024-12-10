@@ -157,7 +157,12 @@
 "setting_privacy_label" = "Privacy & Policy";
 "setting_contact_us_label" = "Contact Us";
 "setting_signout_button" = "Sign Out";
-// setting notification
+
+// Setting notification
+"notification_permission_denied_title" = "Notifications Disabled";
+"notification_permission_denied_message" = "To receive notifications, enable them in the Settings app.";
+"setting_sign_out_failed_title" = "Sign Out Failed";
+"setting_sign_out_failed_message" = "Unable to sign out. Please try again.";
 
 // Account Screen
 "account_screen_title" = "Account";
@@ -214,3 +219,7 @@
 "data_storing_error_image_compression_failed" = "Image compression failed.";
 "data_storing_error_upload_failed" = "Image upload failed, Please try again later";
 "data_storing_error_current_user_not_found" = "The current user is not set or found. Please ensure the user is logged in before performing this action.";
+
+// Alert
+"alert_cancel_button" = "Cancel";
+"alert_go_to_settings_button" = "Go to settings";

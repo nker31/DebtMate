@@ -158,6 +158,12 @@
 "setting_contact_us_label" = "ติดต่อเรา";
 "setting_signout_button" = "ออกจากระบบ";
 
+// Setting notification
+"notification_permission_denied_title" = "การแจ้งเตือนถูกปิด";
+"notification_permission_denied_message" = "เพื่อรับการแจ้งเตือน โปรดเปิดใช้งานในแอปการตั้งค่า";
+"setting_sign_out_failed_title" = "ออกจากระบบไม่สำเร็จ";
+"setting_sign_out_failed_message" = "ไม่สามารถออกจากระบบได้ กรุณาลองอีกครั้งภายหลัง";
+
 // Account Screen
 "account_screen_title" = "บัญชี";
 "account_edit_details_label" = "แก้ไขรายละเอียดบัญชี";
@@ -213,3 +219,7 @@
 "data_storing_error_image_compression_failed" = "การบีบอัดรูปภาพล้มเหลว";
 "data_storing_error_upload_failed" = "การอัปโหลดรูปภาพล้มเหลว โปรดลองอีกครั้งในภายหลัง";
 "data_storing_error_current_user_not_found" = "ไม่พบผู้ใช้งานปัจจุบัน กรุณาเข้าสู่ระบบก่อนทำรายการนี้";
+
+// Alert
+"alert_cancel_button" = "ยกเลิก";
+"alert_go_to_settings_button" = "ไปที่การตั้งค่า";
