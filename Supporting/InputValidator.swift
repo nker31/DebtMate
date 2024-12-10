@@ -25,6 +25,11 @@ class InputValidator {
         return fullName.count >= 3 && fullName.count <= 25
     }
     
+    static func validatePhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneNumber = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+        return phoneNumber.count >= 7 && phoneNumber.count <= 12
+    }
+    
     static func passwordMatch(_ password: String, confirmPassword: String) -> Bool {
         return password == confirmPassword
     }
