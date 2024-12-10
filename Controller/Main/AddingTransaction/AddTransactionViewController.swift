@@ -202,7 +202,7 @@ class AddTransactionViewController: UIViewController {
     }
     
     func navigateToAddPersonManually() {
-        let addPersonManuallyVC = AddManaualPersonViewController()
+        let addPersonManuallyVC = AddManualPersonViewController()
         navigationController?.pushViewController(addPersonManuallyVC, animated: true)
     }
     
