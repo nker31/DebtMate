@@ -71,6 +71,11 @@
 "add_transaction_select_contact_button" = "เลือกจากรายชื่อผู้ติดต่อ";
 "add_transaction_select_existing_button" = "เลือกจากรายชื่อที่มีอยู่";
 
+// Adding Transaction Alert
+"add_transaction_failed_title" = "ไม่สามารถเพิ่มรายการได้";
+"add_transaction_no_selected_person" = "ยังไม่ได้เลือกผู้ยืมหรือผู้ให้ยืม กรุณาเลือกจากรายชื่อหรือเพิ่มใหม่";
+"add_transaction_no_amount" = "กรุณาใส่จำนวนเงิน";
+
 // Add Manual Person Screen
 "add_manual_person_screen_title" = "เพิ่มผู้ให้ยืม/ผู้ยืม";
 "add_manual_person_name_label" = "ชื่อ";

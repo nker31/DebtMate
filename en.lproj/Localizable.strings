@@ -71,6 +71,11 @@
 "add_transaction_select_contact_button" = "Select from contacts";
 "add_transaction_select_existing_button" = "Select from existing";
 
+// Adding Transaction Alert
+"add_transaction_failed_title" = "Unable to Add Transaction";
+"add_transaction_no_selected_person" = "No person selected. Choose a contact or add a new one.";
+"add_transaction_no_amount" = "Enter an amount.";
+
 // Add Manual Person Screen
 "add_manual_person_screen_title" = "Add Lender/Borrower";
 "add_manual_person_name_label" = "Name";
