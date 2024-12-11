@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol AddManualPersonViewControllerDelegate: AnyObject {
+    func addManualPersonViewControllerDidAddPerson(person: Contact)
+}
+
 class AddManualPersonViewController: UIViewController {
     // MARK: - Varibles
+    weak var delegate: AddManualPersonViewControllerDelegate?
+    private var viewModel: AddManualPersonViewModelProtocol
     private var imagePickerManager: ImagePickerManagerController
     
     // MARK: - UI Components
@@ -16,14 +22,18 @@ class AddManualPersonViewController: UIViewController {
     
     private let imagePickerButton: UIButton = CircularImagePickerButton(cornerRadius: 15)
     
-    private let nameTextField: UITextField = DebtMateTextField(
-        placeholder: String(localized: "add_manual_person_name_placeholder")
-    )
+    private let nameTextField: UITextField = {
+        let textField = DebtMateTextField(placeholder: String(localized: "add_manual_person_name_placeholder"))
+        textField.addTarget(self, action: #selector(textFieldsDidChange), for: .editingChanged)
+        return textField
+    }()
     
-    private let phoneNumberTextField: UITextField = DebtMateTextField(
-        placeholder: String(localized: "add_manual_person_phone_number_placeholder"),
-        type: .phoneNumber
-    )
+    
+    private let phoneNumberTextField: UITextField = {
+        let textField = DebtMateTextField(placeholder: String(localized: "add_manual_person_phone_number_placeholder"), type: .phoneNumber)
+        textField.addTarget(self, action: #selector(textFieldsDidChange), for: .editingChanged)
+        return textField
+    }()
     
     private lazy var nameStackView = createTextFieldRow(
         title: String(localized: "add_manual_person_name_label"),
@@ -37,13 +47,17 @@ class AddManualPersonViewController: UIViewController {
     
     private let addButton: UIButton = {
         let button = DebtMateButton(title: "Add", type: .regular)
+        button.isEnabled = false
+        button.alpha = 0.5
         button.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         return button
     }()
     
     // MARK: - Initializer
-    init(imagePickerManager: ImagePickerManagerController = ImagePickerManagerController()) {
+    init(imagePickerManager: ImagePickerManagerController = ImagePickerManagerController(),
+         viewModel: AddManualPersonViewModelProtocol = AddManualPersonViewModel()) {
         self.imagePickerManager = imagePickerManager
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,10 +73,11 @@ class AddManualPersonViewController: UIViewController {
         setupImagePickerMenu(button: imagePickerButton,
                              imagePickerManager: imagePickerManager,
                              delegate: self)
+        viewModel.delegate = self
     }
     
     // MARK: - UI Setup
-    func setupUI() {
+    private func setupUI() {
         view.backgroundColor = .systemBackground
         
         view.addSubview(profileImageView)
@@ -97,13 +112,36 @@ class AddManualPersonViewController: UIViewController {
         ])
     }
     
-    func setNavigationBar() {
+    private func setNavigationBar() {
         title = String(localized: "add_manual_person_screen_title")
     }
     
+    private func enableAddPersonButton(isEnabled: Bool) {
+        addButton.isEnabled = isEnabled
+        addButton.alpha = isEnabled ? 1 : 0.5
+    }
+    
     // MARK: - Selectors
+    @objc func textFieldsDidChange() {
+        viewModel.validatePersonDetails(fullName: nameTextField.text,
+                                        phoneNumber: phoneNumberTextField.text)
+    }
+    
     @objc private func didTapAddButton() {
-        
+        viewModel.addPerson(fullName: nameTextField.text,
+                            phoneNumber: phoneNumberTextField.text,
+                            profileImage: profileImageView.image)
+    }
+}
+
+extension AddManualPersonViewController: AddManualPersonViewModelDelegate {
+    func didAddManualPerson(contact: Contact) {
+        delegate?.addManualPersonViewControllerDidAddPerson(person: contact)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func didValidatePersonDetails(isValid: Bool) {
+        enableAddPersonButton(isEnabled: isValid)
     }
 }
 
