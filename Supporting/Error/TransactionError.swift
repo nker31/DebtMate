@@ -18,17 +18,17 @@ enum TransactionError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .dataStoringFailed:
-            return "Unable to save the transaction. Please try again."
+            return String(localized: "transaction_data_storing_failed")
         case .fetchDataFailed:
-            return "Unable to retrieve data. Please check your connection and try again."
+            return String(localized: "transaction_fetch_data_failed")
         case .decodingFailed:
-            return "Data could not be processed. Please report this issue."
+            return String(localized: "transaction_decoding_failed")
         case .dataEditingFailed:
-            return "Unable to edit the transaction. Please try again."
+            return String(localized: "transaction_data_editing_failed")
         case .dataDeletionFailed:
-            return "Unable to delete the transaction. Please try again."
+            return String(localized: "transaction_data_deletion_failed")
         case .unknownError:
-            return "An unknown error occurred. Please try again later."
+            return String(localized: "transaction_unknown_error")
         }
     }
 }
