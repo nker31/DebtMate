@@ -9,6 +9,7 @@ import UIKit
 
 class AddTransactionViewController: UIViewController {
     // MARK: - Varibles
+    private var viewModel: AddTransactionViewModelProtocol
     
     // MARK: - UI Components
     private var lenderBorrowerView: UIView = {
@@ -128,7 +129,8 @@ class AddTransactionViewController: UIViewController {
     }()
     
     // MARK: - Initializer
-    init() {
+    init(viewModel: AddTransactionViewModelProtocol = AddTransactionViewModel()) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -142,6 +144,7 @@ class AddTransactionViewController: UIViewController {
         setupUI()
         setupNavigationBar()
         setupMenu()
+        viewModel.delegate = self
     }
     
     // MARK: - UI Setup
@@ -203,7 +206,32 @@ class AddTransactionViewController: UIViewController {
     
     func navigateToAddPersonManually() {
         let addPersonManuallyVC = AddManualPersonViewController()
+        addPersonManuallyVC.delegate = self
         navigationController?.pushViewController(addPersonManuallyVC, animated: true)
+    }
+    
+    func setLenderBorrowerLabelText() {
+        if !viewModel.hasSelection {
+            if lendBorrowSegmentedControl.selectedSegmentIndex == 0 {
+                lenderBorrowerLabel.text = String(localized: "add_transaction_lender_label")
+            } else {
+                lenderBorrowerLabel.text = String(localized: "add_transaction_borrower_label")
+            }
+        }
+    }
+    
+    func setAddLenderBorrowerButton() {
+        let button = addLenderBorrowerButton
+        
+        if viewModel.hasSelection {
+            button.setTitle(String(localized: "add_transaction_remove_button"), for: .normal)
+            button.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
+            button.menu = nil
+            button.showsMenuAsPrimaryAction = false
+        } else {
+            button.setTitle(String(localized: "add_transaction_select_button"), for: .normal)
+            setupMenu()
+        }
     }
     
     // MARK: - Selectors
@@ -212,10 +240,37 @@ class AddTransactionViewController: UIViewController {
     }
     
     @objc func lendBorrowSegmentedControlValueChanged(_ sender: UISegmentedControl) {
-        print("AddTransactionViewController: lendBorrowSegmentedControl value changed")
+        let isLending = sender.selectedSegmentIndex == 0
+        viewModel.setTransactionType(isLending: isLending)
+    }
+    
+    @objc func removeButtonTapped() {
+        viewModel.clearSelection()
     }
     
     @objc func dueDateSwitchToggled(_ sender: UISwitch) {
         print("AddTransactionViewController: due date switch toggled")
+    }
+}
+
+extension AddTransactionViewController: AddManualPersonViewControllerDelegate {
+    func addManualPersonViewControllerDidAddPerson(person: Contact) {
+        viewModel.setSelectedContact(contact: person)
+    }
+}
+
+extension AddTransactionViewController: AddTransactionViewModelDelegate {
+    func didSetSelectedPerson(name: String) {
+        lenderBorrowerLabel.text = name
+        setAddLenderBorrowerButton()
+    }
+    
+    func didClearSelection() {
+        setLenderBorrowerLabelText()
+        setAddLenderBorrowerButton()
+    }
+    
+    func didSetTransactionType() {
+        setLenderBorrowerLabelText()
     }
 }
