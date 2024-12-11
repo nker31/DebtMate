@@ -128,6 +128,12 @@ class AddTransactionViewController: UIViewController {
         return stackView
     }()
     
+    private let activityIndicator = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     // MARK: - Initializer
     init(viewModel: AddTransactionViewModelProtocol = AddTransactionViewModel()) {
         self.viewModel = viewModel
@@ -151,10 +157,12 @@ class AddTransactionViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .systemBackground
         
-        view.addSubview(lenderBorrowerView)
         lenderBorrowerView.addSubview(lenderBorrowerLabel)
         lenderBorrowerView.addSubview(addLenderBorrowerButton)
+        
+        view.addSubview(lenderBorrowerView)
         view.addSubview(mainStackView)
+        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             lenderBorrowerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -173,6 +181,9 @@ class AddTransactionViewController: UIViewController {
             mainStackView.topAnchor.constraint(equalTo: lenderBorrowerView.bottomAnchor, constant: 20),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -243,7 +254,9 @@ class AddTransactionViewController: UIViewController {
     
     // MARK: - Selectors
     @objc func addButtonTapped() {
-        print("AddTransactionViewController: add button tapped")
+        viewModel.handleAddTransaction(amount: amountTextField.text,
+                                       description: descriptionTextField.text,
+                                       dueDate: dueDatePicker.date)
     }
     
     @objc func lendBorrowSegmentedControlValueChanged(_ sender: UISegmentedControl) {
@@ -256,7 +269,7 @@ class AddTransactionViewController: UIViewController {
     }
     
     @objc func dueDateSwitchToggled(_ sender: UISwitch) {
-        print("AddTransactionViewController: due date switch toggled")
+        viewModel.enableDueDate(isEnabled: sender.isOn)
     }
 }
 
@@ -285,5 +298,30 @@ extension AddTransactionViewController: AddTransactionViewModelDelegate {
     
     func didSetTransactionType() {
         setLenderBorrowerLabelText()
+    }
+    
+    func didEnableDueDate(isEnabled: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.dueDatePicker.isHidden = !isEnabled
+        }
+    }
+    
+    func didStateChange(to state: ViewState) {
+        switch state {
+        case .idle:
+            activityIndicator.stopAnimating()
+        case .loading:
+            activityIndicator.startAnimating()
+        case .success:
+            navigationController?.popViewController(animated: true)
+        case .failure(let error):
+            activityIndicator.stopAnimating()
+            showAlert(title: String(localized: "add_transaction_failed_title"),
+                      message: error.localizedDescription)
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        presentAlert(title: title, message: message)
     }
 }
