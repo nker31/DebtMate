@@ -225,6 +225,14 @@
 "data_storing_error_upload_failed" = "การอัปโหลดรูปภาพล้มเหลว โปรดลองอีกครั้งในภายหลัง";
 "data_storing_error_current_user_not_found" = "ไม่พบผู้ใช้งานปัจจุบัน กรุณาเข้าสู่ระบบก่อนทำรายการนี้";
 
+// Transaction Error
+"transaction_data_storing_failed" = "ไม่สามารถบันทึกรายการได้ กรุณาลองใหม่อีกครั้ง";
+"transaction_fetch_data_failed" = "ไม่สามารถดึงข้อมูลได้ กรุณาตรวจสอบการเชื่อมต่อและลองใหม่อีกครั้ง";
+"transaction_decoding_failed" = "ไม่สามารถประมวลผลข้อมูลได้ กรุณาแจ้งปัญหานี้";
+"transaction_data_editing_failed" = "ไม่สามารถแก้ไขรายการได้ กรุณาลองใหม่อีกครั้ง";
+"transaction_data_deletion_failed" = "ไม่สามารถลบรายการได้ กรุณาลองใหม่อีกครั้ง";
+"transaction_unknown_error" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ กรุณาลองใหม่ภายหลัง";
+
 // Alert
 "alert_cancel_button" = "ยกเลิก";
 "alert_go_to_settings_button" = "ไปที่การตั้งค่า";

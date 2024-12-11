@@ -225,6 +225,14 @@
 "data_storing_error_upload_failed" = "Image upload failed, Please try again later";
 "data_storing_error_current_user_not_found" = "The current user is not set or found. Please ensure the user is logged in before performing this action.";
 
+// Transaction Error
+"transaction_data_storing_failed" = "Unable to save the transaction. Please try again.";
+"transaction_fetch_data_failed" = "Unable to retrieve data. Please check your connection and try again.";
+"transaction_decoding_failed" = "Data could not be processed. Please report this issue.";
+"transaction_data_editing_failed" = "Unable to edit the transaction. Please try again.";
+"transaction_data_deletion_failed" = "Unable to delete the transaction. Please try again.";
+"transaction_unknown_error" = "An unknown error occurred. Please try again later.";
+
 // Alert
 "alert_cancel_button" = "Cancel";
 "alert_go_to_settings_button" = "Go to settings";
