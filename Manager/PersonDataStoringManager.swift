@@ -14,6 +14,7 @@ protocol PersonDataStoringManagerProtocol {
     func addPerson(from fullname: String, phoneNumber: String?, profileImage: UIImage?, to userID: String) async throws -> String
     func addPerson(from contact: Contact, to userID: String) async throws -> String
     func fetchPersonData(userID: String) async throws
+    func getPersonName(for personID: String) -> String?
 }
 
 class PersonDataStoringManager: PersonDataStoringManagerProtocol {
@@ -85,6 +86,10 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         } catch {
             throw DataStoringError.fetchDataFailed
         }
+    }
+    
+    func getPersonName(for personID: String) -> String? {
+        return personData.first(where: { $0.personID == personID })?.fullName
     }
     
     // MARK: - Private Methods
