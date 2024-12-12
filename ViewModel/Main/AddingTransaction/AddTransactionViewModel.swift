@@ -49,12 +49,14 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
     var personDataStoringManager: PersonDataStoringManagerProtocol
     var userDataStoringManager: UserDataStoringManagerProtocol
     var transactionDataStoringManager: TransactionDataStoringManagerProtocol
+    var notificationManager: NotificationManagerProtocol
 
-    init(personDataStoringManager: PersonDataStoringManagerProtocol = PersonDataStoringManager.shared, userDataStoringManager: UserDataStoringManagerProtocol = UserDataStoringManager.shared, transactionDataStoringManager: TransactionDataStoringManagerProtocol = TransactionDataStoringManager.shared) {
+    init(personDataStoringManager: PersonDataStoringManagerProtocol = PersonDataStoringManager.shared, userDataStoringManager: UserDataStoringManagerProtocol = UserDataStoringManager.shared, transactionDataStoringManager: TransactionDataStoringManagerProtocol = TransactionDataStoringManager.shared, notificationManager: NotificationManagerProtocol = NotificationManager.shared) {
         self.isLend = true
         self.personDataStoringManager = personDataStoringManager
         self.userDataStoringManager = userDataStoringManager
         self.transactionDataStoringManager = transactionDataStoringManager
+        self.notificationManager = notificationManager
     }
     
     func setSelectedContact(contact: Contact) {
@@ -110,9 +112,10 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
                     try await transactionDataStoringManager.addTransactionData(personID: selectedPerson.personID,
                                                                      amount: amountValue,
                                                                      description: description,
-                                                                     dueDate: dueDate,
+                                                                     dueDate: preferredDueDate,
                                                                      isLend: isLend,
                                                                      to: userID)
+                    setTransactionReminder(dueDate: preferredDueDate, amount: amountValue)
                     viewState = .success
                 } catch {
                     viewState = .failure(error)
@@ -123,12 +126,13 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
                                                      description: description,
                                                      dueDate: preferredDueDate,
                                                      to: userID)
+                setTransactionReminder(dueDate: preferredDueDate, amount: amountValue)
                 viewState = .success
             }
         }
     }
     
-    func handleAddPersonFromContact(contact: Contact, to userID: String) async -> String? {
+    private func handleAddPersonFromContact(contact: Contact, to userID: String) async -> String? {
         do {
             return try await personDataStoringManager.addPerson(from: contact, to: userID)
         } catch {
@@ -137,7 +141,7 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
         }
     }
     
-    func handleAddTransactionForContact(contact: Contact, amount: Float, description: String?, dueDate: Date?, to userID: String) async {
+    private func handleAddTransactionForContact(contact: Contact, amount: Float, description: String?, dueDate: Date?, to userID: String) async {
         guard let personID = await handleAddPersonFromContact(contact: contact, to: userID) else {
             return
         }
@@ -153,4 +157,22 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
             viewState = .failure(error)
         }
     }
+    
+    private func setTransactionReminder(dueDate: Date?, amount: Float) {
+        guard isEnabledDueDate, let dueDate else { return }
+        
+        var personName: String = "Unknown"
+        
+        if let selectedPerson {
+            personName = selectedPerson.fullName
+        } else if let selectedContact {
+            personName = selectedContact.name
+        }
+        
+        notificationManager.setTransactionReminder(isLend: isLend,
+                                                   personName: personName,
+                                                   amount: amount,
+                                                   dueDate: dueDate)
+    }
 }
+
