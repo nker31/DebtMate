@@ -12,6 +12,7 @@ protocol TransactionDataStoringManagerProtocol {
     var transactionData: [Transaction] { get }
     func addTransactionData(personID: String, amount: Float, description: String?, dueDate: Date?, isLend: Bool, to userID: String) async throws
     func fetchTransactionData(from userID: String) async throws
+    func getNotOverDueTransactionData() -> [Transaction]
 }
 
 class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
@@ -51,6 +52,12 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
         } catch {
             logMessage("failed to fetch transaction data with error: \(error.localizedDescription)")
             throw TransactionError.fetchDataFailed
+        }
+    }
+    
+    func getNotOverDueTransactionData() -> [Transaction] {
+        return transactionData.filter {
+            $0.dueDate != nil && $0.isPaid == false && $0.dueDate! > Date()
         }
     }
     
