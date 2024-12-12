@@ -79,5 +79,12 @@ class ContactTableViewCell: UITableViewCell {
             contactImageView.image = UIImage(named: "mock-profile")
         }
     }
+    
+    func configCell(person: Person) {
+        contactNameLabel.text = person.fullName
+        
+        contactImageView.setImage(imageURL: person.imageURL,
+                                  placeholder: UIImage(named: "mock-profile"))
+    }
 }
 

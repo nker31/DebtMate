@@ -106,7 +106,17 @@ class AddTransactionViewModel: AddTransactionViewModelProtocol {
         
         Task {
             if let selectedPerson {
-                // Perform add transaction with person ID
+                do {
+                    try await transactionDataStoringManager.addTransactionData(personID: selectedPerson.personID,
+                                                                     amount: amountValue,
+                                                                     description: description,
+                                                                     dueDate: dueDate,
+                                                                     isLend: isLend,
+                                                                     to: userID)
+                    viewState = .success
+                } catch {
+                    viewState = .failure(error)
+                }
             } else if let selectedContact {
                 await handleAddTransactionForContact(contact: selectedContact,
                                                      amount: amountValue,

@@ -205,8 +205,8 @@ class AddTransactionViewController: UIViewController {
             self?.navigateToContactSelection()
         }
         
-        let chooseFromExistingAction = UIAction(title: String(localized: "add_transaction_select_existing_button"), image: UIImage(systemName: "note.text")) { _ in
-            print("AddTransactionViewController: choose from existing tapped")
+        let chooseFromExistingAction = UIAction(title: String(localized: "add_transaction_select_existing_button"), image: UIImage(systemName: "note.text")) { [weak self] _ in
+            self?.navigateToPersonSelection()
         }
         
         let menu = UIMenu(title: String(localized: "add_transaction_menu_title"), children: [addManuallyAction, chooseFromContactAction, chooseFromExistingAction])
@@ -226,6 +226,13 @@ class AddTransactionViewController: UIViewController {
         contactVC.delegate = self
         contactVC.modalPresentationStyle = .fullScreen
         present(contactVC, animated: true, completion: nil)
+    }
+    
+    func navigateToPersonSelection() {
+        let personViewController = ExistingPersonSelectionViewController()
+        personViewController.delegate = self
+        personViewController.modalPresentationStyle = .fullScreen
+        present(personViewController, animated: true, completion: nil)
     }
     
     func setLenderBorrowerLabelText() {
@@ -282,6 +289,12 @@ extension AddTransactionViewController: AddManualPersonViewControllerDelegate {
 extension AddTransactionViewController: ContactSelectionViewControllerDelegate {
     func contactSelectionViewControllerDidSelectContact(_ contact: Contact) {
         viewModel.setSelectedContact(contact: contact)
+    }
+}
+
+extension AddTransactionViewController: ExistingPersonSelectionViewControllerDelegate {
+    func existingPersonSelectionViewControllerDidSelectPerson(person: Person) {
+        viewModel.setSelectedPerson(person: person)
     }
 }
 
