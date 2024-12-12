@@ -52,7 +52,7 @@
 // Main Screen
 "main_total_lent" = "Total Lent";
 "main_total_borrowed" = "Total Borrowed";
-"main_error_title" = "Data Fetching Error":
+"main_error_title" = "Data Fetching Error";
 
 // Adding Transaction Screen
 "add_transaction_lender_label" = "Lender";
