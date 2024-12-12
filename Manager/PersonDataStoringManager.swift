@@ -13,6 +13,7 @@ protocol PersonDataStoringManagerProtocol {
     var personData: [Person] { get }
     func addPerson(from fullname: String, phoneNumber: String?, profileImage: UIImage?, to userID: String) async throws -> String
     func addPerson(from contact: Contact, to userID: String) async throws -> String
+    func fetchPersonData(userID: String) async throws
 }
 
 class PersonDataStoringManager: PersonDataStoringManagerProtocol {
