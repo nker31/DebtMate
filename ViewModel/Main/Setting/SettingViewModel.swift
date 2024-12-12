@@ -26,6 +26,8 @@ class SettingViewModel: SettingViewModelProtocol {
     private var authManager: AuthenticationManagerProtocol
     private var userDataStoringManager: UserDataStoringManagerProtocol
     private var notificationManager: NotificationManagerProtocol
+    private var personDataStoringManager: PersonDataStoringManagerProtocol
+    private var transactionDataStoringManager: TransactionDataStoringManagerProtocol
     
     weak var delegate: SettingViewModelDelegate?
     var settingSection: [SettingSection] = [
@@ -38,10 +40,12 @@ class SettingViewModel: SettingViewModelProtocol {
         notificationManager.isNotificationEnabled
     }
     
-    init(authManager: AuthenticationManagerProtocol = AuthenticationManager.shared, userDataStoringManager: UserDataStoringManagerProtocol = UserDataStoringManager.shared, notificationManager: NotificationManagerProtocol = NotificationManager.shared, isNotificationEnabled: Bool = false) {
+    init(authManager: AuthenticationManagerProtocol = AuthenticationManager.shared, userDataStoringManager: UserDataStoringManagerProtocol = UserDataStoringManager.shared, notificationManager: NotificationManagerProtocol = NotificationManager.shared, isNotificationEnabled: Bool = false, personDataStoringManager: PersonDataStoringManagerProtocol = PersonDataStoringManager.shared, transactionDataStoringManager: TransactionDataStoringManagerProtocol = TransactionDataStoringManager.shared) {
         self.authManager = authManager
         self.userDataStoringManager = userDataStoringManager
         self.notificationManager = notificationManager
+        self.personDataStoringManager = personDataStoringManager
+        self.transactionDataStoringManager = transactionDataStoringManager
     }
     
     func getCurrentUserData() -> (name: String, imageURL: String?) {
@@ -57,6 +61,7 @@ class SettingViewModel: SettingViewModelProtocol {
             notificationManager.enableNotification { [weak self] isGranted in
                 DispatchQueue.main.async {
                     guard !isGranted else {
+                        self?.recreateDeletedNotification()
                         completion(true)
                         return
                     }
@@ -78,6 +83,25 @@ class SettingViewModel: SettingViewModelProtocol {
         } catch {
             delegate?.showAlert(title: String(localized: "setting_sign_out_failed_title"),
                                 message: String(localized: "setting_sign_out_failed_message"))
+        }
+    }
+    
+    private func recreateDeletedNotification() {
+        let notOverDueTransactions = transactionDataStoringManager.getNotOverDueTransactionData()
+        
+        for transaction in notOverDueTransactions {
+            guard let dueDate = transaction.dueDate else {
+                continue
+            }
+            
+            guard let personName = personDataStoringManager.getPersonName(for: transaction.personID) else {
+                continue
+            }
+            
+            notificationManager.setTransactionReminder(isLend: transaction.isLend,
+                                                       personName: personName,
+                                                       amount: transaction.amount,
+                                                       dueDate: dueDate)
         }
     }
 }
