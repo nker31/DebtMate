@@ -82,6 +82,7 @@ class MainViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
+        tableView.register(PersonTableViewCell.self, forCellReuseIdentifier: PersonTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -118,6 +119,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
+        tableView.delegate = self
+        tableView.dataSource = self
         viewModel.delegate = self
         viewModel.fetchUserData()
     }
@@ -127,6 +130,8 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [
                 .font: UIFont.systemFont(ofSize: 20, weight: .semibold)
         ]
+        
+        setupData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -205,6 +210,13 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
     }
     
+    func setupData() {
+        let balance = viewModel.calculateTotalBalance()
+        lentTotalLabel.text = "\(balance.0)"
+        borrowTotalLabel.text = "\(balance.1)"
+        tableView.reloadData()
+    }
+    
     // MARK: - Selectors
     @objc func navigateToSetting() {
         let settingViewController = SettingViewController()
@@ -221,21 +233,34 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.personData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PersonTableViewCell.identifier, for: indexPath) as! PersonTableViewCell
+        let person = viewModel.personData[indexPath.row]
+        let personalBalance = viewModel.calculatePersonalBalance(for: person.personID)
+        cell.configCell(person: person, balance: personalBalance)
+        return cell
+    }
+}
+
 extension MainViewController: MainViewModelDelegate {
-    func showAlert(title: String, message: String) {
-        presentAlert(title: title, message: message)
-    }
-    
-    func didStartFetchingUserData() {
-        activityIndicator.startAnimating()
-    }
-    
-    func didFinishFetchingUserData() {
-        activityIndicator.stopAnimating()
-        tableView.reloadData()
-    }
-    
-    func didFaiedFetchingUserData() {
-        activityIndicator.stopAnimating()
+    func didStateChange(to viewState: ViewState) {
+        switch viewState {
+        case .idle:
+            activityIndicator.stopAnimating()
+        case .loading:
+            activityIndicator.startAnimating()
+        case .success:
+            activityIndicator.stopAnimating()
+            setupData()
+        case .failure(let error):
+            activityIndicator.stopAnimating()
+            presentAlert(title: String(localized: "main_error_title"),
+                         message: error.localizedDescription)
+        }
     }
 }
