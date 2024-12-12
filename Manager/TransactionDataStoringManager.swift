@@ -11,6 +11,7 @@ import FirebaseFirestore
 protocol TransactionDataStoringManagerProtocol {
     var transactionData: [Transaction] { get }
     func addTransactionData(personID: String, amount: Float, description: String?, dueDate: Date?, isLend: Bool, to userID: String) async throws
+    func fetchTransactionData(from userID: String) async throws
 }
 
 class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
@@ -31,6 +32,25 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
             try await storeTransactionData(transaction, to: userID)
         } catch {
             throw error
+        }
+    }
+    
+    func fetchTransactionData(from userID: String) async throws {
+        let transactionRef = firestore.collection("users").document(userID).collection("transactions")
+        
+        do {
+            let snapshot = try await transactionRef.getDocuments()
+            self.transactionData = snapshot.documents.compactMap { doc in
+                do {
+                    return try Firestore.Decoder().decode(Transaction.self, from: doc.data())
+                } catch {
+                    return nil
+                }
+            }
+            logMessage("fetched transaction data successfully wiht total : \(transactionData.count)")
+        } catch {
+            logMessage("failed to fetch transaction data with error: \(error.localizedDescription)")
+            throw TransactionError.fetchDataFailed
         }
     }
     
