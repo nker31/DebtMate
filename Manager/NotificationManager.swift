@@ -13,6 +13,7 @@ protocol NotificationManagerProtocol {
     var isNotificationEnabled: Bool { get }
     func enableNotification(completion: @escaping (Bool) -> Void)
     func disableNotification()
+    func setNotification(title: String, body: String, date: Date)
 }
 
 final class NotificationManager: NotificationManagerProtocol {
@@ -23,6 +24,7 @@ final class NotificationManager: NotificationManagerProtocol {
     private let userDefaults: UserDefaults
     
     private let isEnabledKey = "isNotificationEnabled"
+    private var numberOfNotifications: Int = 0
     
     var isNotificationEnabled: Bool {
         get {
@@ -67,6 +69,33 @@ final class NotificationManager: NotificationManagerProtocol {
         notificationCenter.removeAllDeliveredNotifications()
         application.applicationIconBadgeNumber = 0
         isNotificationEnabled = false
+        numberOfNotifications = 0
+    }
+    
+    func setNotification(title: String, body: String, date: Date) {
+        guard isNotificationEnabled else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        content.badge = NSNumber(value: numberOfNotifications + 1)
+        
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "reminderDebt", content: content, trigger: trigger)
+        
+        notificationCenter.add(request) { [weak self] error in
+            if let error {
+                self?.logMessage("Error adding notification: \(error.localizedDescription)")
+            } else {
+                self?.numberOfNotifications += 1
+                self?.logMessage("Notification added successfully")
+            }
+        }
     }
     
     // MARK: - Private Methods
