@@ -52,6 +52,7 @@
 // Main Screen
 "main_total_lent" = "Total Lent";
 "main_total_borrowed" = "Total Borrowed";
+"main_error_title" = "Data Fetching Error":
 
 // Adding Transaction Screen
 "add_transaction_lender_label" = "Lender";
@@ -216,6 +217,7 @@
 "authentication_error_network_error" = "There was a network error. Please check your connection and try again.";
 "authentication_error_password_update_failed" = "Failed to update the password. Please try again later.";
 "authentication_error_same_password" = "Your new password cannot be the same as your old password.";
+"authentication_error_no_user_session" = "No user session. Please log in.";
 
 // Data Storing Error
 "data_storing_error_fetch_data_failed" = "Failed to fetch user data, Please try again later";
