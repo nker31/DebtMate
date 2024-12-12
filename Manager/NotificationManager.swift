@@ -14,6 +14,7 @@ protocol NotificationManagerProtocol {
     func enableNotification(completion: @escaping (Bool) -> Void)
     func disableNotification()
     func setNotification(title: String, body: String, date: Date)
+    func setTransactionReminder(isLend: Bool, personName: String, amount: Float, dueDate: Date)
 }
 
 final class NotificationManager: NotificationManagerProtocol {
@@ -96,6 +97,15 @@ final class NotificationManager: NotificationManagerProtocol {
                 self?.logMessage("Notification added successfully")
             }
         }
+    }
+    
+    func setTransactionReminder(isLend: Bool, personName: String, amount: Float, dueDate: Date) {
+        let title = isLend ? "Lending Reminder" : "Borrow Reminder"
+        let body = isLend
+            ? "\(personName) owes you $\(amount)"
+            : "You owe \(personName) $\(amount)"
+        
+        setNotification(title: title, body: body, date: dueDate)
     }
     
     // MARK: - Private Methods
