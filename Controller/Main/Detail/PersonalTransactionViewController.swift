@@ -149,8 +149,50 @@ extension PersonalTransactionViewController: UITableViewDelegate, UITableViewDat
         cell.configCell(transaction: transaction)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: String(localized: "person_screen_delete_button")) { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            
+            presentDeleteItemAlert { result in
+                guard result else { return }
+                
+                let initialSections = self.numberOfSections(in: tableView)
+                
+                let isLendingSection = !self.viewModel.lendingTransactions.isEmpty && indexPath.section == 0
+                
+                self.viewModel.deleteTransaction(from: indexPath.row,
+                                                 isLending: isLendingSection)
+                
+                tableView.performBatchUpdates {
+                    if isLendingSection {
+                        if self.viewModel.lendingTransactions.isEmpty {
+                            tableView.deleteSections([0], with: .automatic)
+                        } else {
+                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                        }
+                    } else {
+                        let borrowingSectionIndex = initialSections == 1 ? 0 : 1
+                        if self.viewModel.borrowingTransactions.isEmpty {
+                            tableView.deleteSections([borrowingSectionIndex], with: .automatic)
+                        } else {
+                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                        }
+                    }
+                }
+            }
+        }
+        
+        deleteAction.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 extension PersonalTransactionViewController: PersonalTransactionViewModelDelegate {
+    func showAlert(title: String, message: String) {
+        presentAlert(title: title, message: message)
+    }
+    
     func didSetPersonalDetail(person: Person) {
         title = person.fullName
         headerView.configure(imageURL: person.imageURL)

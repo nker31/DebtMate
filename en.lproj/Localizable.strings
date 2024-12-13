@@ -118,6 +118,9 @@
 "person_screen_update_success_title" = "Update Successful";
 "person_screen_update_success_message" = "The data has been successfully updated.";
 
+// Person Screen Alert
+"person_delete_transaction_failed_title" = "Failed to Delete Transaction";
+
 // Edit Person Screen
 "edit_person_change_image_button" = "Change Image";
 "edit_person_name_label" = "Name";

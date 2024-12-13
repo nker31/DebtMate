@@ -13,6 +13,7 @@ protocol TransactionDataStoringManagerProtocol {
     func addTransactionData(personID: String, amount: Float, description: String?, dueDate: Date?, isLend: Bool, to userID: String) async throws
     func fetchTransactionData(from userID: String) async throws
     func getNotOverDueTransactionData() -> [Transaction]
+    func deleteTransactionData(from transactionID: String, userID: String) async throws
 }
 
 class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
@@ -55,6 +56,27 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
         }
     }
     
+    func deleteTransactionData(from transactionID: String, userID: String) async throws {
+        guard let transactionIndex = getTransactionIndex(from: transactionID) else {
+            return
+        }
+        
+        transactionData.remove(at: transactionIndex)
+        
+        let transactionRef = firestore.collection("users")
+            .document(userID)
+            .collection("transactions")
+            .document(transactionID)
+        
+        do {
+            try await transactionRef.delete()
+            logMessage("Transaction successfully deleted")
+        } catch {
+            logMessage("Failed to delete transaction: \(error.localizedDescription)")
+            throw TransactionError.dataDeletionFailed
+        }
+    }
+    
     func getNotOverDueTransactionData() -> [Transaction] {
         return transactionData.filter {
             $0.dueDate != nil && $0.isPaid == false && $0.dueDate! > Date()
@@ -84,6 +106,14 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
             logMessage("storing transaction data failed with error: \(error.localizedDescription)")
             throw DataStoringError.savingUserDataFailed
         }
+    }
+    
+    private func getTransactionIndex(from transactionID: String) -> Int? {
+        return transactionData.firstIndex { $0.transactionID == transactionID }
+    }
+    
+    private func getTransactionData(from transactionID: String) -> Transaction? {
+        return transactionData.first { $0.transactionID == transactionID }
     }
     
     private func logMessage(_ message: String) {
