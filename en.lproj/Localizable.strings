@@ -238,3 +238,7 @@
 // Alert
 "alert_cancel_button" = "Cancel";
 "alert_go_to_settings_button" = "Go to settings";
+"alert_delete_item_title" = "Delete Item";
+"alert_delete_item_message" = "Are you sure you want to delete this item?";
+"alert_delete_item_delete_button" = "Delete";
+"alert_delete_item_cancel_button" = "Cancel";

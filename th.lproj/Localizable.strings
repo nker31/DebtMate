@@ -238,3 +238,7 @@
 // Alert
 "alert_cancel_button" = "ยกเลิก";
 "alert_go_to_settings_button" = "ไปที่การตั้งค่า";
+"alert_delete_item_title" = "ลบรายการ";
+"alert_delete_item_message" = "คุณแน่ใจหรือว่าต้องการลบรายการนี้?";
+"alert_delete_item_delete_button" = "ลบ";
+"alert_delete_item_cancel_button" = "ยกเลิก";
