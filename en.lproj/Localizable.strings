@@ -120,6 +120,7 @@
 
 // Person Screen Alert
 "person_delete_transaction_failed_title" = "Failed to Delete Transaction";
+"person_toggle_transaction_failed_title" = "Failed to Edit Transaction";
 
 // Edit Person Screen
 "edit_person_change_image_button" = "Change Image";

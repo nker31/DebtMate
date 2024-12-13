@@ -13,6 +13,7 @@ protocol TransactionDataStoringManagerProtocol {
     func addTransactionData(personID: String, amount: Float, description: String?, dueDate: Date?, isLend: Bool, to userID: String) async throws
     func fetchTransactionData(from userID: String) async throws
     func getNotOverDueTransactionData() -> [Transaction]
+    func toggleTransactionPaidStatus(from transactionID: String, userID: String) async throws
     func deleteTransactionData(from transactionID: String, userID: String) async throws
 }
 
@@ -74,6 +75,30 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
         } catch {
             logMessage("Failed to delete transaction: \(error.localizedDescription)")
             throw TransactionError.dataDeletionFailed
+        }
+    }
+    
+    func toggleTransactionPaidStatus(from transactionID: String, userID: String) async throws {
+        guard let transactionIndex = getTransactionIndex(from: transactionID) else {
+            return
+        }
+        
+        transactionData[transactionIndex].isPaid.toggle()
+        transactionData[transactionIndex].updatedAt = Date()
+        
+        let updatedTransaction = transactionData[transactionIndex]
+
+        let transactionRef = firestore.collection("users")
+            .document(userID)
+            .collection("transactions")
+            .document(transactionID)
+
+        do {
+            try transactionRef.setData(from: updatedTransaction)
+            logMessage("Transaction data successfully edited")
+        } catch {
+            logMessage("Failed to edit transaction data: \(error.localizedDescription)")
+            throw TransactionError.dataEditingFailed
         }
     }
     

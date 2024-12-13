@@ -13,6 +13,7 @@ protocol PersonalTransactionViewModelProtocol {
     var borrowingTransactions: [Transaction] { get }
     func fetchPersonalTransactions()
     func setPersonalDetail()
+    func toggleTransactionStatus(from transactionIndex: Int, isLending: Bool)
     func deleteTransaction(from transactionIndex: Int, isLending: Bool)
 }
 
@@ -60,8 +61,32 @@ class PersonalTransactionViewModel: PersonalTransactionViewModelProtocol {
                              && borrowingTransactions.isEmpty)
     }
     
-    func deleteTransaction(from transactionIndex: Int, isLending: Bool) {
+    func toggleTransactionStatus(from transactionIndex: Int, isLending: Bool) {
+        guard let userID = dataStoringManager.currentUser?.userID else { return }
         
+        var transactionID: String
+        
+        if isLending {
+            lendingTransactions[transactionIndex].isPaid.toggle()
+            transactionID = lendingTransactions[transactionIndex].transactionID
+        } else {
+            borrowingTransactions[transactionIndex].isPaid.toggle()
+            transactionID = borrowingTransactions[transactionIndex].transactionID
+        }
+        
+        Task {
+            do {
+                try await transactionManager.toggleTransactionPaidStatus(from: transactionID, userID: userID)
+            } catch {
+                await MainActor.run {
+                    delegate?.showAlert(title: String(localized: "person_toggle_transaction_failed_title"),
+                                        message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func deleteTransaction(from transactionIndex: Int, isLending: Bool) {
         guard let userID = dataStoringManager.currentUser?.userID else { return }
         
         var transactionID: String

@@ -187,6 +187,35 @@ extension PersonalTransactionViewController: UITableViewDelegate, UITableViewDat
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let isLendingSection = !self.viewModel.lendingTransactions.isEmpty && indexPath.section == 0
+        var isPaid: Bool
+        
+        if isLendingSection {
+            isPaid = viewModel.lendingTransactions[indexPath.row].isPaid
+        } else {
+            isPaid = viewModel.borrowingTransactions[indexPath.row].isPaid
+        }
+        
+        let title = isPaid
+        ? String(localized: "person_screen_unpaid_button")
+        : String(localized: "person_screen_paid_button")
+        
+        let returnAction = UIContextualAction(style: .destructive, title: title) { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            
+            let isLendingSection = !self.viewModel.lendingTransactions.isEmpty && indexPath.section == 0
+            
+            viewModel.toggleTransactionStatus(from: indexPath.row, isLending: isLendingSection)
+            
+            tableView.reloadData()
+        }
+        
+        returnAction.backgroundColor = .systemGreen
+        
+        return UISwipeActionsConfiguration(actions: [returnAction])
+    }
 }
 extension PersonalTransactionViewController: PersonalTransactionViewModelDelegate {
     func showAlert(title: String, message: String) {
