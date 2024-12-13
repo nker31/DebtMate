@@ -245,6 +245,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configCell(person: person, balance: personalBalance)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewModel = PersonalTransactionViewModel(person: viewModel.personData[indexPath.row])
+        let viewController = PersonalTransactionViewController(viewModel: viewModel)
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension MainViewController: MainViewModelDelegate {
