@@ -13,6 +13,7 @@ protocol MainViewModelProtocol {
     func fetchUserData()
     func calculatePersonalBalance(for personID: String) -> Float?
     func calculateTotalBalance() -> (Float, Float)
+    func deletePerson(from personIndex: Int)
 }
 
 protocol MainViewModelDelegate: AnyObject {
@@ -107,5 +108,24 @@ class MainViewModel: MainViewModelProtocol {
         }
         
         return (totalLend, totalBorrow)
+    }
+    
+    func deletePerson(from personIndex: Int) {
+        guard let userID = userDataStoringManager.currentUser?.userID else {
+            viewState = .failure(DataStoringError.currentUserNotFound)
+            return
+        }
+        
+        let selectedPersonID = personData[personIndex].personID
+        
+        Task {
+            do {
+                try await personDataStoringManager.deletePersonData(from: selectedPersonID, userID: userID)
+                try await transactionDataStoringManager.deleteAllPersonalTransaction(from: selectedPersonID, userID: userID)
+                viewState = .success
+            } catch {
+                viewState = .failure(error)
+            }
+        }
     }
 }

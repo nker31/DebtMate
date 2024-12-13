@@ -53,6 +53,7 @@
 "main_total_lent" = "ยอดเงินที่ให้ยืม";
 "main_total_borrowed" = "ยอดเงินที่ยืม";
 "main_error_title" = "ข้อผิดพลาดในการดึงข้อมูล";
+"main_delete_person_button" = "ลบ";
 
 // Adding Transaction Screen
 "add_transaction_lender_label" = "ผู้ให้ยืม";
@@ -234,6 +235,14 @@
 "transaction_data_editing_failed" = "ไม่สามารถแก้ไขรายการได้ กรุณาลองใหม่อีกครั้ง";
 "transaction_data_deletion_failed" = "ไม่สามารถลบรายการได้ กรุณาลองใหม่อีกครั้ง";
 "transaction_unknown_error" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ กรุณาลองใหม่ภายหลัง";
+
+// Person Error
+"person_data_storing_failed" = "ไม่สามารถบันทึกข้อมูลบุคคลได้ กรุณาลองอีกครั้ง";
+"person_fetch_data_failed" = "ไม่สามารถดึงข้อมูลบุคคลได้ กรุณาตรวจสอบการเชื่อมต่อและลองอีกครั้ง";
+"person_decoding_failed" = "ไม่สามารถประมวลผลข้อมูลได้ กรุณาแจ้งปัญหานี้";
+"person_data_editing_failed" = "ไม่สามารถแก้ไขข้อมูลบุคคลได้ กรุณาลองอีกครั้ง";
+"person_data_deletion_failed" = "ไม่สามารถลบข้อมูลบุคคลได้ กรุณาลองอีกครั้ง";
+"person_unknown_error" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ กรุณาลองใหม่ในภายหลัง";
 
 // Alert
 "alert_cancel_button" = "ยกเลิก";

@@ -14,6 +14,7 @@ protocol PersonDataStoringManagerProtocol {
     func addPerson(from fullname: String, phoneNumber: String?, profileImage: UIImage?, to userID: String) async throws -> String
     func addPerson(from contact: Contact, to userID: String) async throws -> String
     func fetchPersonData(userID: String) async throws
+    func deletePersonData(from personID: String, userID: String) async throws
     func getPersonName(for personID: String) -> String?
 }
 
@@ -84,7 +85,28 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
                 }
             }
         } catch {
-            throw DataStoringError.fetchDataFailed
+            throw PersonError.fetchDataFailed
+        }
+    }
+    
+    func deletePersonData(from personID: String, userID: String) async throws {
+        guard let personIndex = getPersonIndex(from: personID) else {
+            return
+        }
+        
+        personData.remove(at: personIndex)
+        
+        let personRef = firestore.collection("users")
+            .document(userID)
+            .collection("persons")
+            .document(personID)
+        
+        do {
+            try await personRef.delete()
+            logMessage(message: "Person data deleted successfully")
+        } catch {
+            logMessage(message: "Failed to delete Person data: \(error.localizedDescription)")
+            throw PersonError.dataDeletionFailed
         }
     }
     
@@ -122,7 +144,7 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
             try personRef.setData(from: person)
         } catch {
             logMessage(message: "PersonDataStoringManager: Error adding person - \(error.localizedDescription)")
-            throw DataStoringError.savingUserDataFailed
+            throw PersonError.dataStoringFailed
         }
     }
     
@@ -142,7 +164,9 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
             throw DataStoringError.uploadFailed
         }
     }
-    
+}
+
+extension PersonDataStoringManager {
     private func checkIfPersonDataExists(from fullName: String, phoneNumber: String?) -> String? {
         let keyToFind = "\(fullName)|\(phoneNumber ?? "")"
 
@@ -163,6 +187,14 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         }
         
         return nil
+    }
+    
+    private func getPersonData(from personID: String) -> Person? {
+        return personData.first { $0.personID == personID }
+    }
+    
+    private func getPersonIndex(from personID: String) -> Int? {
+        return personData.firstIndex { $0.personID == personID }
     }
     
     private func sortPersonData() {

@@ -53,6 +53,7 @@
 "main_total_lent" = "Total Lent";
 "main_total_borrowed" = "Total Borrowed";
 "main_error_title" = "Data Fetching Error";
+"main_delete_person_button" = "Delete";
 
 // Adding Transaction Screen
 "add_transaction_lender_label" = "Lender";
@@ -238,6 +239,14 @@
 "transaction_data_editing_failed" = "Unable to edit the transaction. Please try again.";
 "transaction_data_deletion_failed" = "Unable to delete the transaction. Please try again.";
 "transaction_unknown_error" = "An unknown error occurred. Please try again later.";
+
+// Person Error
+"person_data_storing_failed" = "Unable to save the person data. Please try again.";
+"person_fetch_data_failed" = "Unable to retrieve person data. Please check your connection and try again.";
+"person_decoding_failed" = "Data could not be processed. Please report this issue.";
+"person_data_editing_failed" = "Unable to edit the person data. Please try again.";
+"person_data_deletion_failed" = "Unable to delete the person data. Please try again.";
+"person_unknown_error" = "An unknown error occurred. Please try again later.";
 
 // Alert
 "alert_cancel_button" = "Cancel";

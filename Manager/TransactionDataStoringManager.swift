@@ -15,6 +15,7 @@ protocol TransactionDataStoringManagerProtocol {
     func getNotOverDueTransactionData() -> [Transaction]
     func toggleTransactionPaidStatus(from transactionID: String, userID: String) async throws
     func deleteTransactionData(from transactionID: String, userID: String) async throws
+    func deleteAllPersonalTransaction(from personID: String, userID: String) async throws
 }
 
 class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
@@ -74,6 +75,35 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
             logMessage("Transaction successfully deleted")
         } catch {
             logMessage("Failed to delete transaction: \(error.localizedDescription)")
+            throw TransactionError.dataDeletionFailed
+        }
+    }
+    
+    func deleteAllPersonalTransaction(from personID: String, userID: String) async throws {
+        transactionData.removeAll(where: { $0.personID == personID})
+        
+        let transactionRef = firestore.collection("users")
+            .document(userID)
+            .collection("transactions")
+        
+        let querySnapshot: QuerySnapshot
+        do {
+            querySnapshot = try await transactionRef.whereField("personID", isEqualTo: personID).getDocuments()
+        } catch {
+            logMessage("failed to query transactions: \(error.localizedDescription)")
+            throw TransactionError.dataDeletionFailed
+        }
+        
+        let batch = firestore.batch()
+        for document in querySnapshot.documents {
+            batch.deleteDocument(document.reference)
+        }
+        
+        do {
+            try await batch.commit()
+            logMessage("All personal transactions deleted successfully")
+        } catch {
+            logMessage("failed to delete transactions: \(error.localizedDescription)")
             throw TransactionError.dataDeletionFailed
         }
     }

@@ -252,6 +252,23 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: String(localized: "main_delete_person_button")) { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            
+            presentDeleteItemAlert { isDelete in
+                if isDelete {
+                    self.viewModel.deletePerson(from: indexPath.row)
+                }
+            }
+            
+            completionHandler(true)
+        }
+        
+        deleteAction.backgroundColor = .systemRed
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 extension MainViewController: MainViewModelDelegate {
