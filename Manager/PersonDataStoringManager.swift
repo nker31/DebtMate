@@ -15,6 +15,8 @@ protocol PersonDataStoringManagerProtocol {
     func addPerson(from contact: Contact, to userID: String) async throws -> String
     func fetchPersonData(userID: String) async throws
     func deletePersonData(from personID: String, userID: String) async throws
+    func updatePerson(updatedPerson: Person, for userID: String) async throws
+    func updatePerson(withImage updatedImage: UIImage, updatedPerson: Person, for userID: String) async throws
     func getPersonName(for personID: String) -> String?
 }
 
@@ -114,6 +116,31 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         return personData.first(where: { $0.personID == personID })?.fullName
     }
     
+    func updatePerson(updatedPerson: Person, for userID: String) async throws {
+        guard let personIndex = getPersonIndex(from: updatedPerson.personID) else {
+            throw PersonError.dataEditingFailed
+        }
+        
+        personData[personIndex] = updatedPerson
+        try await updatePersonData(updatedPerson, for: userID)
+    }
+    
+    func updatePerson(withImage updatedImage: UIImage, updatedPerson: Person, for userID: String) async throws {
+        guard let personIndex = getPersonIndex(from: updatedPerson.personID) else {
+            throw PersonError.dataEditingFailed
+        }
+        
+        let imageName = "person_\(updatedPerson.personID)"
+        let newImageURL = try await uploadPersonProfileImage(image: updatedImage,
+                                                             imageName: imageName)
+        
+        var mutablePerson = updatedPerson
+        mutablePerson.imageURL = newImageURL
+        personData[personIndex] = mutablePerson
+        
+        try await updatePersonData(mutablePerson, for: userID)
+    }
+    
     // MARK: - Private Methods
     private func createPerson(personName: String, phoneNumber: String?, profileImage: UIImage?) async throws -> Person {
         let personID = UUID().uuidString
@@ -148,12 +175,12 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         }
     }
     
-    private func uploadPersonProfileImage(image: UIImage, imageName: String) async throws -> String? {
+    private func uploadPersonProfileImage(image: UIImage, imageName: String) async throws -> String {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             throw DataStoringError.imageCompressionFailed
         }
         
-        let imageRef = storageRef.child("userProfileImages/\(imageName).jpg")
+        let imageRef = storageRef.child("personProfileImages/\(imageName).jpg")
         
         do {
             _ = try await imageRef.putDataAsync(imageData)
@@ -162,6 +189,22 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         } catch {
             logMessage(message: "Error uploading image - \(error.localizedDescription)")
             throw DataStoringError.uploadFailed
+        }
+    }
+    
+    private func updatePersonData(_ person: Person, for userID: String) async throws {
+        let personRef = firestore
+                    .collection("users")
+                    .document(userID)
+                    .collection("persons")
+                    .document(person.personID)
+                
+        do {
+            try personRef.setData(from: person)
+            logMessage(message: "Person data updated successfully")
+        } catch {
+            logMessage(message: "Person data update failed with error: \(error.localizedDescription)")
+            throw PersonError.dataEditingFailed
         }
     }
 }
