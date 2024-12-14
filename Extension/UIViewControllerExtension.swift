@@ -86,4 +86,22 @@ extension UIViewController {
 
         present(alert, animated: true, completion: nil)
     }
+    
+    func presentAlertAndDismiss(title: String, message: String, isPopView: Bool = false) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        let okayAction = UIAlertAction(title: String(localized: "alert_okay_button"), style: .default) { [weak self] _ in
+            if isPopView {
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                self?.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        alert.addAction(okayAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
