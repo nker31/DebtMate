@@ -11,6 +11,7 @@ protocol PersonalTransactionViewModelProtocol {
     var delegate: PersonalTransactionViewModelDelegate? { get set }
     var lendingTransactions: [Transaction] { get }
     var borrowingTransactions: [Transaction] { get }
+    var person: Person { get }
     func fetchPersonalTransactions()
     func setPersonalDetail()
     func toggleTransactionStatus(from transactionIndex: Int, isLending: Bool)
@@ -27,8 +28,8 @@ class PersonalTransactionViewModel: PersonalTransactionViewModelProtocol {
     var delegate: PersonalTransactionViewModelDelegate?
     var lendingTransactions: [Transaction]
     var borrowingTransactions: [Transaction]
-    
-    private var person: Person
+    var person: Person
+
     private var transactionManager: TransactionDataStoringManagerProtocol
     private var dataStoringManager: UserDataStoringManagerProtocol
     

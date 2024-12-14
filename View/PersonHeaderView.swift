@@ -42,4 +42,8 @@ class PersonHeaderView: UIView {
         personImageView.setImage(imageURL: imageURL,
                                  placeholder: UIImage(named: "mock-profile"))
     }
+    
+    func configure(image: UIImage?) {
+        personImageView.image = image
+    }
 }

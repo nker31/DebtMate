@@ -95,7 +95,10 @@ class PersonalTransactionViewController: UIViewController {
     
     // MARK: - Selectors
     @objc func didTapEditButton() {
-        print("PersonalTransactionViewController didTapEditButton")
+        let editViewModel = EditPersonalDetailViewModel(person: viewModel.person)
+        let editViewController = EditPersonalDetailViewController(viewModel: editViewModel)
+        editViewController.delegate = self
+        navigationController?.pushViewController(editViewController, animated: true)
     }
 }
 
@@ -230,5 +233,12 @@ extension PersonalTransactionViewController: PersonalTransactionViewModelDelegat
     func reloadView(isEmpty: Bool) {
         noTransactionLabel.isHidden = !isEmpty
         tableView.reloadData()
+    }
+}
+
+extension PersonalTransactionViewController: EditPersonalDetailViewControllerDelegate {
+    func editPersonalDetailViewControllerDidUpdatePerson(personName: String?, personImage: UIImage?) {
+        title = personName
+        headerView.configure(image: personImage)
     }
 }

@@ -128,6 +128,8 @@
 "edit_person_save_button" = "อัปเดต";
 "edit_person_error_alert_title" = "ข้อผิดพลาด";
 "edit_person_error_alert_message_empty_name" = "ชื่อไม่สามารถเว้นว่างได้";
+"edit_person_success_title" = "อัปเดตสำเร็จ";
+"edit_person_success_message" = "ข้อมูลได้รับการอัปเดตเรียบร้อยแล้ว";
 
 // Transaction Detail Screen
 "transaction_detail_type_lent" = "ให้ยืม";
@@ -251,3 +253,4 @@
 "alert_delete_item_message" = "คุณแน่ใจหรือว่าต้องการลบรายการนี้?";
 "alert_delete_item_delete_button" = "ลบ";
 "alert_delete_item_cancel_button" = "ยกเลิก";
+"alert_okay_button" = "ตกลง";

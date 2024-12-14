@@ -132,6 +132,8 @@
 "edit_person_save_button" = "Update";
 "edit_person_error_alert_title" = "Error";
 "edit_person_error_alert_message_empty_name" = "Name cannot be empty.";
+"edit_person_success_title" = "Update Successful";
+"edit_person_success_message" = "The data has been successfully updated.";
 
 // Transaction Detail Screen
 "transaction_detail_type_lent" = "Lent";
@@ -255,3 +257,4 @@
 "alert_delete_item_message" = "Are you sure you want to delete this item?";
 "alert_delete_item_delete_button" = "Delete";
 "alert_delete_item_cancel_button" = "Cancel";
+"alert_okay_button" = "Okay";
