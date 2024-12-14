@@ -127,10 +127,9 @@ extension EditAccountViewController: EditAccountViewModelDelegate {
     }
     
     func didUpdateSuccessfully() {
-        presentAlert(title: String(localized: "edit_account_success_title"),
-                     message: String(localized: "edit_account_success_message"))
-        updateButton.isEnabled = false
-        updateButton.alpha = 0.5
+        presentAlertAndDismiss(title: String(localized: "edit_account_success_title"),
+                               message: String(localized: "edit_account_success_message"),
+                               isPopView: true)
     }
     
     func showAlert(title: String, message: String) {
