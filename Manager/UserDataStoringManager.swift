@@ -69,44 +69,20 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
     
     // MARK: - Update User Data
     func updateUserData(updatedUser: User) async throws {
-        let userRef = firestore.collection("users").document(updatedUser.userID)
-        
-        do {
-            try userRef.setData(from: updatedUser)
-            print("UserDataStoringManager: Updated user data for userID: \(updatedUser.userID)")
-            self.currentUser = updatedUser
-        } catch {
-            let errorMessage = "UserDataStoringManager: Error updating user data: \(error.localizedDescription)"
-            print(errorMessage)
-            throw DataStoringError.savingUserDataFailed
-        }
+        try await saveUserDataToFirestore(user: updatedUser, userID: updatedUser.userID)
+        self.currentUser = updatedUser
     }
 
     func updateUserData(updatedImage: UIImage, updatedUser: User) async throws {
-        var newImageURL: String?
+        let imageName = "profileImage_\(updatedUser.userID)"
         
-        do {
-            let imageName = "person_\(updatedUser.userID)"
-            newImageURL = try await uploadProfileImage(image: updatedImage, imageName: imageName)
-        } catch {
-            let errorMessage = "UserDataStoringManager: Failed to upload image for userID: \(updatedUser.userID)"
-            print(errorMessage)
-            throw DataStoringError.uploadFailed
-        }
+        let newImageURL = try await uploadProfileImage(image: updatedImage, imageName: imageName)
         
         var updatedUser: User = updatedUser
         updatedUser.imageURL = newImageURL
         
-        do {
-            let userRef = firestore.collection("users").document(updatedUser.userID)
-            try userRef.setData(from: updatedUser)
-            print("UserDataStoringManager: Updated user data and image for userID: \(updatedUser.userID)")
-            self.currentUser = updatedUser
-        } catch {
-            let errorMessage = "UserDataStoringManager: Failed to update person data for userID: \(updatedUser.userID)"
-            print(errorMessage)
-            throw DataStoringError.uploadFailed
-        }
+        try await saveUserDataToFirestore(user: updatedUser, userID: updatedUser.userID)
+        self.currentUser = updatedUser
     }
     
     // MARK: - Private Methods
@@ -114,9 +90,9 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
         do {
             let encodedUser = try Firestore.Encoder().encode(user)
             try await firestore.collection("users").document(userID).setData(encodedUser)
-            print("UserDataStoringManager: User data saved/updated successfully for userID: \(userID)")
+            logMessage("User data saved/updated successfully")
         } catch {
-            print("UserDataStoringManager: Error saving user data with error \(error.localizedDescription)")
+            logMessage("Error saving user data with error \(error.localizedDescription)")
             throw DataStoringError.savingUserDataFailed
         }
     }
@@ -131,7 +107,7 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
             _ = try await storageRef.putDataAsync(imageData)
             return try await storageRef.downloadURL().absoluteString
         } catch {
-            print("UserDataStoringManager: Error uploading image with error \(error.localizedDescription)")
+            logMessage("Error uploading image with error \(error.localizedDescription)")
             throw DataStoringError.uploadFailed
         }
     }
@@ -140,8 +116,12 @@ final class UserDataStoringManager: UserDataStoringManagerProtocol {
         do {
             return try Firestore.Decoder().decode(User.self, from: data)
         } catch {
-            print("UserDataStoringManager: Error decoding User with error \(error.localizedDescription)")
+            logMessage("Error decoding User with error \(error.localizedDescription)")
             throw DataStoringError.decodingFailed
         }
+    }
+    
+    private func logMessage(_ message: String) {
+        print("UserDataStoringManager: \(message)")
     }
 }
