@@ -224,7 +224,8 @@ class MainViewController: UIViewController {
     }
     
     @objc func navigateToHistory() {
-       print("MainViewController: navigateToHistory")
+        let historyViewcontroller = TransactionHistoryViewController()
+        navigationController?.pushViewController(historyViewcontroller, animated: true)
     }
     
     @objc func tapAddButton() {
