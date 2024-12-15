@@ -120,7 +120,7 @@ class MainViewModel: MainViewModelProtocol {
         
         Task {
             do {
-                try await personDataStoringManager.deletePersonData(from: selectedPersonID, userID: userID)
+                try await personDataStoringManager.deletePerson(from: selectedPersonID, userID: userID)
                 try await transactionDataStoringManager.deleteAllPersonalTransaction(from: selectedPersonID, userID: userID)
                 viewState = .success
             } catch {

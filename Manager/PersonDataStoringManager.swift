@@ -14,7 +14,7 @@ protocol PersonDataStoringManagerProtocol {
     func addPerson(from fullname: String, phoneNumber: String?, profileImage: UIImage?, to userID: String) async throws -> String
     func addPerson(from contact: Contact, to userID: String) async throws -> String
     func fetchPersonData(userID: String) async throws
-    func deletePersonData(from personID: String, userID: String) async throws
+    func deletePerson(from personID: String, userID: String) async throws
     func updatePerson(updatedPerson: Person, for userID: String) async throws
     func updatePerson(withImage updatedImage: UIImage, updatedPerson: Person, for userID: String) async throws
     func getPersonName(for personID: String) -> String?
@@ -94,25 +94,15 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         }
     }
     
-    func deletePersonData(from personID: String, userID: String) async throws {
+    func deletePerson(from personID: String, userID: String) async throws {
         guard let personIndex = getPersonIndex(from: personID) else {
             return
         }
         
         personData.remove(at: personIndex)
-        
-        let personRef = firestore.collection("users")
-            .document(userID)
-            .collection("persons")
-            .document(personID)
-        
-        do {
-            try await personRef.delete()
-            logMessage(message: "Person data deleted successfully")
-        } catch {
-            logMessage(message: "Failed to delete Person data: \(error.localizedDescription)")
-            throw PersonError.dataDeletionFailed
-        }
+        try await deletePersonDocument(userID: userID, personID: personID)
+        let imageName = "person_\(personID)"
+        try await deletePersonImage(imageName: imageName)
     }
     
     func getPersonName(for personID: String) -> String? {
@@ -217,6 +207,33 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
         } catch {
             logMessage(message: "Person data update failed with error: \(error.localizedDescription)")
             throw PersonError.dataEditingFailed
+        }
+    }
+    
+    private func deletePersonDocument(userID: String, personID: String) async throws {
+        let personRef = firestore.collection("users")
+            .document(userID)
+            .collection("persons")
+            .document(personID)
+        
+        do {
+            try await personRef.delete()
+            logMessage(message: "Person data deleted successfully")
+        } catch {
+            logMessage(message: "Failed to delete Person data: \(error.localizedDescription)")
+            throw PersonError.dataDeletionFailed
+        }
+    }
+    
+    private func deletePersonImage(imageName: String) async throws {
+        let imageRef = storageRef.child("personProfileImages/\(imageName).jpg")
+        
+        do {
+            try await imageRef.delete()
+            logMessage(message: "Person profile image deleted successfully")
+        } catch {
+            logMessage(message: "delete profile image failed with error: \(error.localizedDescription)")
+            throw PersonError.dataDeletionFailed
         }
     }
 }
