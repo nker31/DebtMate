@@ -219,6 +219,22 @@ extension PersonalTransactionViewController: UITableViewDelegate, UITableViewDat
         
         return UISwipeActionsConfiguration(actions: [returnAction])
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var transaction: Transaction
+        
+        if viewModel.lendingTransactions.isEmpty {
+            transaction = viewModel.borrowingTransactions[indexPath.row]
+        } else if viewModel.borrowingTransactions.isEmpty {
+            transaction = viewModel.lendingTransactions[indexPath.row]
+        } else {
+            transaction = indexPath.section == 0 ? viewModel.lendingTransactions[indexPath.row] : viewModel.borrowingTransactions[indexPath.row]
+        }
+        
+        let viewModel = TransactionDetailViewModel(transaction: transaction)
+        let transactionDetailsViewController = TransactionDetailViewController(viewModel: viewModel)
+        navigationController?.pushViewController(transactionDetailsViewController, animated: true)
+    }
 }
 extension PersonalTransactionViewController: PersonalTransactionViewModelDelegate {
     func showAlert(title: String, message: String) {

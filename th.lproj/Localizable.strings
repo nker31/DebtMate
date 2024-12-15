@@ -145,6 +145,7 @@
 "transaction_detail_status_label" = "สถานะ";
 "transaction_detail_mark_as_paid_button" = "ทำเครื่องหมายว่าชำระแล้ว";
 "transaction_detail_mark_as_unpaid_button" = "ทำเครื่องหมายว่ายังไม่ชำระ";
+"transaction_detail_toggle_failed_title" = "ไม่สามารถอัปเดตสถานะรายการได้";
 
 // Transaction History Screen
 "transaction_history_screen_title" = "ประวัติการทำรายการ";
