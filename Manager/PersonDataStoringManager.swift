@@ -25,15 +25,18 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
     
     private let firestore: Firestore
     private let storageRef: StorageReference
+    private var personNameCache: [String: String]
     
     var personData: [Person]
     
     init(firestore: Firestore = Firestore.firestore(),
          storageRef: StorageReference = Storage.storage().reference(),
-         personData: [Person] = []) {
+         personData: [Person] = [],
+         personNameCache: [String: String] = [:]) {
         self.firestore = firestore
         self.storageRef = storageRef
         self.personData = personData
+        self.personNameCache = personNameCache
     }
     
     // MARK: - Public Method
@@ -113,7 +116,16 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
     }
     
     func getPersonName(for personID: String) -> String? {
-        return personData.first(where: { $0.personID == personID })?.fullName
+        if let cachedName = personNameCache[personID] {
+            return cachedName
+        }
+        
+        if let person = personData.first(where: { $0.personID == personID }) {
+            personNameCache[personID] = person.fullName
+            return person.fullName
+        }
+        
+        return nil
     }
     
     func updatePerson(updatedPerson: Person, for userID: String) async throws {
