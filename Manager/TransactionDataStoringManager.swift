@@ -50,7 +50,7 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
                 } catch {
                     return nil
                 }
-            }
+            }.sorted { $0.createdAt > $1.createdAt }
             logMessage("fetched transaction data successfully wiht total : \(transactionData.count)")
         } catch {
             logMessage("failed to fetch transaction data with error: \(error.localizedDescription)")
@@ -152,7 +152,7 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
     private func storeTransactionData(_ transaction: Transaction, to userID: String) async throws {
         let transactionRef = firestore.collection("users").document(userID).collection("transactions").document(transaction.transactionID)
         
-        transactionData.append(transaction)
+        transactionData.insert(transaction, at: 0)
         
         do {
             try transactionRef.setData(from: transaction)
@@ -162,7 +162,9 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
             throw DataStoringError.savingUserDataFailed
         }
     }
-    
+}
+
+extension TransactionDataStoringManager {
     private func getTransactionIndex(from transactionID: String) -> Int? {
         return transactionData.firstIndex { $0.transactionID == transactionID }
     }
