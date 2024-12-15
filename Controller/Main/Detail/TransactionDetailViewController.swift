@@ -74,6 +74,7 @@ class TransactionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupNavigationBar()
         viewModel.delegate = self
         viewModel.setupTransactionData()
     }
@@ -105,6 +106,30 @@ class TransactionDetailViewController: UIViewController {
             markAsPaidButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             markAsPaidButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = setupOptionMenu()
+    }
+    
+    private func setupOptionMenu() -> UIBarButtonItem {
+        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { action in
+            print("Edit tapped")
+        }
+        
+        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+            self?.presentDeleteItemAlert(title: String(localized: "transaction_confirm_delete_title"), message: String(localized: "transaction_confirm_delete_message")) { isDeleteConfirmed in
+                guard isDeleteConfirmed else { return }
+                self?.viewModel.deleteTransaction()
+            }
+        }
+        
+        let optionsMenu = UIMenu(title: "Options", children: [editAction, deleteAction])
+        
+        let optionsButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+                                            menu: optionsMenu)
+        
+        return optionsButton
     }
     
     private func createDetailRow(title: String, icon: UIImage?) -> UIStackView {
@@ -194,6 +219,10 @@ class TransactionDetailViewController: UIViewController {
 }
 
 extension TransactionDetailViewController: TransactionDetailViewModelDelegate {
+    func didDeleteTransaction() {
+        presentAlertAndDismiss(title: "Success", message: "Delete transaction successful", isPopView: true)
+    }
+    
     func didToggleTransactionFailed(error: any Error) {
         presentAlert(title: String(localized: "transaction_detail_toggle_failed_title"),
                      message: error.localizedDescription)

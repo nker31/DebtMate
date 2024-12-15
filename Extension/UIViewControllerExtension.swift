@@ -87,6 +87,25 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func presentDeleteItemAlert(title: String, message: String, completion: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: String(localized: "alert_delete_item_delete_button"), style: .destructive) { _ in
+            completion(true)
+        }
+
+        let cancelAction = UIAlertAction(title: String(localized: "alert_delete_item_cancel_button"), style: .cancel) { _ in
+            completion(false)
+        }
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+    
     func presentAlertAndDismiss(title: String, message: String, isPopView: Bool = false) {
         let alert = UIAlertController(title: title,
                                       message: message,
@@ -104,4 +123,5 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+
 }

@@ -150,6 +150,8 @@
 "transaction_detail_mark_as_paid_button" = "Mark as Paid";
 "transaction_detail_mark_as_unpaid_button" = "Mark as Unpaid";
 "transaction_detail_toggle_failed_title" = "Failed to Update Transaction Status";
+"transaction_confirm_delete_title" = "Delete Transaction";
+"transaction_confirm_delete_message" = "Are you certain you want to delete this transaction?";
 
 // Transaction History Screen
 "transaction_history_screen_title" = "Transaction History";

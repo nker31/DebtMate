@@ -11,12 +11,14 @@ protocol TransactionDetailViewModelProtocol {
     var delegate: TransactionDetailViewModelDelegate? { get set }
     func setupTransactionData()
     func toggleTransactionStatus()
+    func deleteTransaction()
 }
 
 protocol TransactionDetailViewModelDelegate: AnyObject {
     func didSetupTransactionData(transaction: Transaction)
     func didToggleTransactionStatus(isPaid: Bool)
     func didToggleTransactionFailed(error: Error)
+    func didDeleteTransaction()
 }
 
 class TransactionDetailViewModel: TransactionDetailViewModelProtocol {
@@ -47,6 +49,26 @@ class TransactionDetailViewModel: TransactionDetailViewModelProtocol {
         Task {
             do {
                 try await transactionManager.toggleTransactionPaidStatus(from: transaction.transactionID, userID: userID)
+            } catch {
+                await MainActor.run {
+                    delegate?.didToggleTransactionFailed(error: error)
+                }
+            }
+        }
+    }
+    
+    func deleteTransaction() {
+        guard let userID = userManager.currentUser?.userID else {
+            return
+        }
+        
+        Task {
+            do {
+                try await transactionManager.deleteTransactionData(from: transaction.transactionID, userID: userID)
+                await MainActor.run {
+                    delegate?.didDeleteTransaction()
+                }
+                
             } catch {
                 await MainActor.run {
                     delegate?.didToggleTransactionFailed(error: error)
