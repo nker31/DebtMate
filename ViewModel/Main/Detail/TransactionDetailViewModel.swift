@@ -9,9 +9,11 @@ import Foundation
 
 protocol TransactionDetailViewModelProtocol {
     var delegate: TransactionDetailViewModelDelegate? { get set }
+    var transaction: Transaction { get }
     func setupTransactionData()
     func toggleTransactionStatus()
     func deleteTransaction()
+    func didUpdateTransaction(transaction: Transaction)
 }
 
 protocol TransactionDetailViewModelDelegate: AnyObject {
@@ -23,8 +25,8 @@ protocol TransactionDetailViewModelDelegate: AnyObject {
 
 class TransactionDetailViewModel: TransactionDetailViewModelProtocol {
     weak var delegate: TransactionDetailViewModelDelegate?
+    var transaction: Transaction
     
-    private var transaction: Transaction
     private var userManager: UserDataStoringManagerProtocol
     private var transactionManager: TransactionDataStoringManagerProtocol
     
@@ -75,5 +77,10 @@ class TransactionDetailViewModel: TransactionDetailViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func didUpdateTransaction(transaction: Transaction) {
+        self.transaction = transaction
+        delegate?.didSetupTransactionData(transaction: transaction)
     }
 }

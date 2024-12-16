@@ -113,8 +113,8 @@ class TransactionDetailViewController: UIViewController {
     }
     
     private func setupOptionMenu() -> UIBarButtonItem {
-        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { action in
-            print("Edit tapped")
+        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { [weak self] action in
+            self?.navigateToEditTransaction()
         }
         
         let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
@@ -212,6 +212,13 @@ class TransactionDetailViewController: UIViewController {
         markAsPaidButton.backgroundColor = isPaid ? .systemRed : .systemGreen
     }
     
+    private func navigateToEditTransaction() {
+        let editTransactionViewModel = EditTransactionViewModel(transaction: viewModel.transaction)
+        let editTransactionViewController = EditTransactionViewController(viewModel: editTransactionViewModel)
+        editTransactionViewController.delegate = self
+        navigationController?.pushViewController(editTransactionViewController, animated: true)
+    }
+    
     // MARK: - Selectors
     @objc func didTapMarkButton(_ sender: UIButton) {
         viewModel.toggleTransactionStatus()
@@ -234,5 +241,11 @@ extension TransactionDetailViewController: TransactionDetailViewModelDelegate {
     
     func didToggleTransactionStatus(isPaid: Bool) {
         configureStatusView(isPaid: isPaid)
+    }
+}
+
+extension TransactionDetailViewController: EditTransactionViewControllerDelegate {
+    func editTransactionViewControllerDidUpdateTransaction(_ transaction: Transaction) {
+        viewModel.didUpdateTransaction(transaction: transaction)
     }
 }
