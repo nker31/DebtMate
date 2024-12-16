@@ -16,6 +16,7 @@ protocol TransactionDataStoringManagerProtocol {
     func toggleTransactionPaidStatus(from transactionID: String, userID: String) async throws
     func deleteTransactionData(from transactionID: String, userID: String) async throws
     func deleteAllPersonalTransaction(from personID: String, userID: String) async throws
+    func updateTransactionData(_ transaction: Transaction, userID: String) async throws
 }
 
 class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
@@ -34,6 +35,7 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
         
         do {
             try await storeTransactionData(transaction, to: userID)
+            transactionData.insert(transaction, at: 0)
         } catch {
             throw error
         }
@@ -138,6 +140,15 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
         }
     }
     
+    func updateTransactionData(_ transaction: Transaction, userID: String) async throws {
+        guard let transactionIndex = getTransactionIndex(from: transaction.transactionID) else {
+            throw TransactionError.dataEditingFailed
+        }
+        
+        try await storeTransactionData(transaction, to: userID)
+        transactionData[transactionIndex] = transaction
+    }
+    
     // MARK: - Private Methods
     private func createTransactionData(personID: String, amount: Float, description: String?, dueDate: Date?, isLend: Bool) -> Transaction {
         let description = description == "" ? nil : description
@@ -150,9 +161,11 @@ class TransactionDataStoringManager: TransactionDataStoringManagerProtocol {
     }
     
     private func storeTransactionData(_ transaction: Transaction, to userID: String) async throws {
-        let transactionRef = firestore.collection("users").document(userID).collection("transactions").document(transaction.transactionID)
-        
-        transactionData.insert(transaction, at: 0)
+        let transactionRef = firestore
+            .collection("users")
+            .document(userID)
+            .collection("transactions")
+            .document(transaction.transactionID)
         
         do {
             try transactionRef.setData(from: transaction)
