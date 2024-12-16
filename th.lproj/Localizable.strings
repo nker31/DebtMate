@@ -149,6 +149,11 @@
 "transaction_confirm_delete_title" = "ยืนยันการลบรายการ";
 "transaction_confirm_delete_message" = "คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?";
 
+// Edit Transaction Screen
+"edit_transaction_success_title" = "อัปเดตธุรกรรมเรียบร้อยแล้ว";
+"edit_transaction_success_message" = "รายละเอียดธุรกรรมของคุณได้รับการอัปเดตเรียบร้อยแล้ว";
+"edit_transaction_failed_title" = "ไม่สามารถอัปเดตธุรกรรมได้";
+
 // Transaction History Screen
 "transaction_history_screen_title" = "ประวัติการทำรายการ";
 "transaction_history_empty_label" = "ยังไม่มีการทำรายการ";

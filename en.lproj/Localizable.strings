@@ -153,6 +153,11 @@
 "transaction_confirm_delete_title" = "Delete Transaction";
 "transaction_confirm_delete_message" = "Are you certain you want to delete this transaction?";
 
+// Edit Transaction Screen
+"edit_transaction_success_title" = "Transaction Updated";
+"edit_transaction_success_message" = "Your transaction details have been successfully updated.";
+"edit_transaction_failed_title" = "Unable to Update Transaction";
+
 // Transaction History Screen
 "transaction_history_screen_title" = "Transaction History";
 "transaction_history_empty_label" = "No transactions yet.";
