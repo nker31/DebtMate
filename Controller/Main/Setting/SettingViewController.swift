@@ -81,6 +81,12 @@ class SettingViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func displayPrivacyPolicy() {
+        let privacyPolicyVC = PrivacyPolicyViewController()
+        privacyPolicyVC.modalPresentationStyle = .formSheet
+        present(privacyPolicyVC, animated: true)
+    }
+    
     // MARK: - Selectors
     @objc func switchChanged(_ sender: UISwitch) {
         viewModel.toggleNotificationSetting(isEnabled: sender.isOn) { isEnabled in
@@ -155,7 +161,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case 2:
             if indexPath.row == 0 {
-                print("SettingViewController: tap terms and conditions")
+                displayPrivacyPolicy()
             } else {
                 print("SettingViewController: tap contact us")
             }
