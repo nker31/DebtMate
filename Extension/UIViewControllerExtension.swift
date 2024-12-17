@@ -123,5 +123,13 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
-
+    
+    func navigateToURL(_ url: URL, errorMessage: String = String(localized: "alert_navigate_url_failed_default_message")) {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            presentAlert(title: String(localized: "alert_navigate_url_failed_title"),
+                         message: errorMessage)
+        }
+    }
 }

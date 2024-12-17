@@ -163,7 +163,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 displayPrivacyPolicy()
             } else {
-                print("SettingViewController: tap contact us")
+                viewModel.draftContactSupportEmail()
             }
         case 3:
             viewModel.signOut()
@@ -174,6 +174,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension SettingViewController: SettingViewModelDelegate {
+    func didContactUs(url: URL) {
+        navigateToURL(url, errorMessage: String(localized: "setting_contact_us_failed_message"))
+    }
+    
     func didSettingNotifactionPermissionDenied() {
         showNotificationSettingsAlert()
     }

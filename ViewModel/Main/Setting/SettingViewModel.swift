@@ -13,12 +13,14 @@ protocol SettingViewModelProtocol {
     var isNotificationEnabled: Bool { get }
     func getCurrentUserData() -> (name: String, imageURL: String?)
     func toggleNotificationSetting(isEnabled: Bool, completion: @escaping (Bool) -> Void)
+    func draftContactSupportEmail()
     func signOut()
 }
 
 protocol SettingViewModelDelegate: AnyObject {
     func showAlert(title: String, message: String)
     func didSettingNotifactionPermissionDenied()
+    func didContactUs(url: URL)
     func didSignOut()
 }
 
@@ -103,5 +105,33 @@ class SettingViewModel: SettingViewModelProtocol {
                                                        amount: transaction.amount,
                                                        dueDate: dueDate)
         }
+    }
+    
+    func draftContactSupportEmail() {
+        let supportEmail = "nathatkuan.dev@gmail.com"
+        let subject = "User Support - DebtMate"
+        let body = """
+            Hello DebtMate Support Team,
+            
+            I am reaching out regarding an issue or question I have about the app. Here are the details:
+            
+            [Please describe your issue or feedback here]
+            
+            Thank you for your assistance.
+            
+            Regards,
+            [Your Name]
+            """
+        
+        let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let mailtoURLString = "mailto:\(supportEmail)?subject=\(subjectEncoded)&body=\(bodyEncoded)"
+        
+        guard let mailtoURL = URL(string: mailtoURLString) else {
+            print("Invalid mailto URL")
+            return
+        }
+        
+        delegate?.didContactUs(url: mailtoURL)
     }
 }
