@@ -180,6 +180,7 @@
 "notification_permission_denied_message" = "เพื่อรับการแจ้งเตือน โปรดเปิดใช้งานในแอปการตั้งค่า";
 "setting_sign_out_failed_title" = "ออกจากระบบไม่สำเร็จ";
 "setting_sign_out_failed_message" = "ไม่สามารถออกจากระบบได้ กรุณาลองอีกครั้งภายหลัง";
+"setting_contact_us_failed_message" = "ดูเหมือนว่าอุปกรณ์ของคุณยังไม่ได้ตั้งค่าแอปอีเมล กรุณาตั้งค่าบัญชีอีเมลและลองอีกครั้ง";
 
 // Account Screen
 "account_screen_title" = "บัญชี";
@@ -262,3 +263,5 @@
 "alert_delete_item_delete_button" = "ลบ";
 "alert_delete_item_cancel_button" = "ยกเลิก";
 "alert_okay_button" = "ตกลง";
+"alert_navigate_url_failed_title" = "ไม่สามารถดำเนินการได้";
+"alert_navigate_url_failed_default_message" = "ไม่สามารถดำเนินการนี้ได้";

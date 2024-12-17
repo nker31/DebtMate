@@ -184,6 +184,7 @@
 "notification_permission_denied_message" = "To receive notifications, enable them in the Settings app.";
 "setting_sign_out_failed_title" = "Sign Out Failed";
 "setting_sign_out_failed_message" = "Unable to sign out. Please try again.";
+"setting_contact_us_failed_message" = "It seems like your device does not have an email app configured. Please set up an email account and try again.";
 
 // Account Screen
 "account_screen_title" = "Account";
@@ -266,3 +267,5 @@
 "alert_delete_item_delete_button" = "Delete";
 "alert_delete_item_cancel_button" = "Cancel";
 "alert_okay_button" = "Okay";
+"alert_navigate_url_failed_title" = "Action Not Supported";
+"alert_navigate_url_failed_default_message" = "This action cannot be completed";
