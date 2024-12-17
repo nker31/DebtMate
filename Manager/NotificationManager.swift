@@ -87,7 +87,9 @@ final class NotificationManager: NotificationManagerProtocol {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "reminderDebt", content: content, trigger: trigger)
+        let uniqueIdentifier = "reminderDebt_\(UUID().uuidString)"
+        
+        let request = UNNotificationRequest(identifier: uniqueIdentifier, content: content, trigger: trigger)
         
         notificationCenter.add(request) { [weak self] error in
             if let error {
