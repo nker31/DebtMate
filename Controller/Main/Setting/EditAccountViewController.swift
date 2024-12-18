@@ -49,15 +49,12 @@ class EditAccountViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         viewModel.delegate = self
+        viewModel.fetchCurrentUser()
         setupImagePickerMenu(button: imagePickerButton,
                              imagePickerManager: imagePickerController,
                              delegate: self)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        viewModel.fetchCurrentUser()
-    }
-    
+
     // MARK: - UI Setup
     func setupUI() {
         view.backgroundColor = .systemBackground
