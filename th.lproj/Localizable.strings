@@ -255,6 +255,14 @@
 "person_data_deletion_failed" = "ไม่สามารถลบข้อมูลบุคคลได้ กรุณาลองอีกครั้ง";
 "person_unknown_error" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ กรุณาลองใหม่ในภายหลัง";
 
+// Onboarding
+"onboarding_track_headline" = "ติดตามธุรกรรมของคุณ";
+"onboarding_track_subheadline" = "บันทึกการให้ยืมและการยืมเงินได้อย่างง่ายดายเพียงไม่กี่ขั้นตอน";
+"onboarding_manage_headline" = "จัดการหนี้ของคุณ";
+"onboarding_manage_subheadline" = "จัดระเบียบได้ง่ายด้วยสรุปข้อมูลและรายละเอียดธุรกรรม";
+"onboarding_notify_headline" = "ไม่พลาดการชำระเงินอีกต่อไป";
+"onboarding_notify_subheadline" = "ตั้งวันครบกำหนด พร้อมรับการแจ้งเตือน";
+
 // Alert
 "alert_cancel_button" = "ยกเลิก";
 "alert_go_to_settings_button" = "ไปที่การตั้งค่า";

@@ -259,6 +259,15 @@
 "person_data_deletion_failed" = "Unable to delete the person data. Please try again.";
 "person_unknown_error" = "An unknown error occurred. Please try again later.";
 
+// Onboarding
+"onboarding_track_headline" = "Track Your Transactions";
+"onboarding_track_subheadline" = "Easily log your lending and borrowing activities with just a few taps.";
+"onboarding_manage_headline" = "Manage Your Debt Efficiently";
+"onboarding_manage_subheadline" = "Stay organized with clear summaries and transaction details.";
+"onboarding_notify_headline" = "Never Miss a Payment";
+"onboarding_notify_subheadline" = "Set due dates and get reminders for upcoming payments.";
+
+
 // Alert
 "alert_cancel_button" = "Cancel";
 "alert_go_to_settings_button" = "Go to settings";
