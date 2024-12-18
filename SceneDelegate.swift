@@ -19,7 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let _ = authenticationManager.userSession {
             window.rootViewController = UINavigationController(rootViewController: MainViewController())
         } else {
-            window.rootViewController = UINavigationController(rootViewController: LoginViewController())
+            let isOnboardingCompleted = UserDefaults.standard.bool(forKey: "isOnboardingCompleted")
+                    
+            if isOnboardingCompleted {
+                window.rootViewController = UINavigationController(rootViewController: LoginViewController())
+            } else {
+                let onboardingPageVC = OnboardingPageViewController()
+                window.rootViewController = onboardingPageVC
+            }
         }
         
         self.window = window
