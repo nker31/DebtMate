@@ -113,11 +113,11 @@ class TransactionDetailViewController: UIViewController {
     }
     
     private func setupOptionMenu() -> UIBarButtonItem {
-        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { [weak self] action in
+        let editAction = UIAction(title: String(localized: "transaction_detail_edit_menu"), image: UIImage(systemName: "pencil")) { [weak self] action in
             self?.navigateToEditTransaction()
         }
         
-        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
+        let deleteAction = UIAction(title: String(localized: "transaction_detail_delete_menu"), image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] action in
             self?.presentDeleteItemAlert(title: String(localized: "transaction_confirm_delete_title"), message: String(localized: "transaction_confirm_delete_message")) { isDeleteConfirmed in
                 guard isDeleteConfirmed else { return }
                 self?.viewModel.deleteTransaction()
@@ -227,7 +227,9 @@ class TransactionDetailViewController: UIViewController {
 
 extension TransactionDetailViewController: TransactionDetailViewModelDelegate {
     func didDeleteTransaction() {
-        presentAlertAndDismiss(title: "Success", message: "Delete transaction successful", isPopView: true)
+        presentAlertAndDismiss(title: String(localized: "transaction_success_delete_title"),
+                               message: String(localized: "transaction_confirm_delete_message"),
+                               isPopView: true)
     }
     
     func didToggleTransactionFailed(error: any Error) {

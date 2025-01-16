@@ -89,7 +89,7 @@ class TransactionTableViewCell: UITableViewCell {
     private func configureTitleLabel(for transaction: Transaction) {
         let isLend = transaction.isLend
         let amount = transaction.amount
-        titleLabel.text = isLend ? "Lent $\(amount)" : "Borrowed $\(amount)"
+        titleLabel.text = isLend ? "\(String(localized: "transaction_cell_lend")) $\(amount)" : "\(String(localized: "transaction_cell_borrow")) $\(amount)"
     }
 
     private func configureSubLabel(for transaction: Transaction) {
@@ -103,7 +103,7 @@ class TransactionTableViewCell: UITableViewCell {
             self.backgroundColor = .systemGreen.withAlphaComponent(0.1)
             titleLabel.textColor = .systemGray
             subLabel.textColor = .systemGray2
-            configurePaidLabel(isHidden: false, text: "✓ Paid", color: .systemGreen)
+            configurePaidLabel(isHidden: false, text: String(localized: "transaction_cell_paid_status"), color: .systemGreen)
         } else {
             self.backgroundColor = .systemBackground
             titleLabel.textColor = .label
@@ -127,8 +127,9 @@ class TransactionTableViewCell: UITableViewCell {
         titleLabel.text = nil
         subLabel.text = nil
         paidLabel.isHidden = true
-        paidLabel.text = "Paid"
-        paidLabel.textColor = .systemGreen
+//#warning("add localization")
+//        paidLabel.text = "Paid"
+//        paidLabel.textColor = .systemGreen
         backgroundColor = .systemBackground
         titleLabel.textColor = .label
         subLabel.textColor = .label

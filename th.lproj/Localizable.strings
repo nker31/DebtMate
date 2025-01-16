@@ -131,6 +131,11 @@
 "edit_person_success_title" = "อัปเดตสำเร็จ";
 "edit_person_success_message" = "ข้อมูลได้รับการอัปเดตเรียบร้อยแล้ว";
 
+// Transaction Cell
+"transaction_cell_borrow" = "ยืม";
+"transaction_cell_lend" = "ให้ยืม";
+"transaction_cell_paid_status" = "✓ ชำระแล้ว";
+
 // Transaction Detail Screen
 "transaction_detail_type_lent" = "ให้ยืม";
 "transaction_detail_type_borrowed" = "ยืม";
@@ -148,6 +153,12 @@
 "transaction_detail_toggle_failed_title" = "ไม่สามารถอัปเดตสถานะรายการได้";
 "transaction_confirm_delete_title" = "ยืนยันการลบรายการ";
 "transaction_confirm_delete_message" = "คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?";
+"transaction_success_delete_title" = "สำเร็จ";
+"transaction_confirm_delete_message" = "ลบธุรกรรมสำเร็จแล้ว";
+
+// Transaction Detail Screen Sub Menu
+"transaction_detail_edit_menu" = "แก้ไขรายการ";
+"transaction_detail_delete_menu" = "ลบรายการ";
 
 // Edit Transaction Screen
 "edit_transaction_success_title" = "อัปเดตธุรกรรมเรียบร้อยแล้ว";
