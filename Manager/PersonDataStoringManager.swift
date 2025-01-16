@@ -99,10 +99,15 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
             return
         }
         
+        let hasImage = personData[personIndex].imageURL != nil
+        
         personData.remove(at: personIndex)
         try await deletePersonDocument(userID: userID, personID: personID)
-        let imageName = "person_\(personID)"
-        try await deletePersonImage(imageName: imageName)
+        
+        if hasImage {
+            let imageName = "person_\(personID)"
+            try await deletePersonImage(imageName: imageName)
+        }
     }
     
     func getPersonName(for personID: String) -> String? {
