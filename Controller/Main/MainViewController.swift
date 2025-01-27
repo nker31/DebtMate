@@ -83,6 +83,7 @@ class MainViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
         tableView.register(PersonTableViewCell.self, forCellReuseIdentifier: PersonTableViewCell.identifier)
+        tableView.rowHeight = 90
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
