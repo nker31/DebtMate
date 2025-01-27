@@ -13,6 +13,18 @@ class SignUpViewController: UIViewController {
     private var imagePickerImager: ImagePickerManagerController
     
     // MARK: - UI Components
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let profileImageView: UIImageView =  {
         let imageView = CircularImageView(cornerRadius: 60)
         imageView.image = UIImage(systemName: "person.crop.circle")
@@ -50,8 +62,8 @@ class SignUpViewController: UIViewController {
         return label
     }()
     
-    let policyStack: UIStackView = {
-        let stack = UIStackView()
+    private lazy var policyStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [policyCheckBoxButton, policyLabel])
         stack.axis = .horizontal
         stack.alignment = .center
         stack.spacing = 10
@@ -99,10 +111,61 @@ class SignUpViewController: UIViewController {
     // MARK: - UI Setup
     func setupUI() {
         view.backgroundColor = .systemBackground
-
-        policyStack.addArrangedSubview(policyCheckBoxButton)
-        policyStack.addArrangedSubview(policyLabel)
         
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        let textfieldStack = createTextFieldStackView()
+        
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(profileImageButton)
+        contentView.addSubview(textfieldStack)
+        contentView.addSubview(signUpButton)
+        contentView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 1.2),
+            
+            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 120),
+            profileImageView.heightAnchor.constraint(equalToConstant: 120),
+            
+            profileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor),
+            profileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
+            profileImageButton.widthAnchor.constraint(equalToConstant: 30),
+            profileImageButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            textfieldStack.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
+            textfieldStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            textfieldStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            signUpButton.topAnchor.constraint(equalTo: textfieldStack.bottomAnchor, constant: 20),
+            signUpButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            signUpButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            signUpButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+    }
+    
+    func setupNavigationBar() {
+        title = String(localized: "signup_screen_title")
+        self.navigationController?.navigationBar.tintColor = .debtMateBlack
+    }
+    
+    private func createTextFieldStackView() -> UIStackView {
         let textfieldStack: UIStackView = UIStackView(arrangedSubviews: [
             createTextFieldRow(title: String(localized: "signup_full_name_label"), field: fullNameTextField),
             createTextFieldRow(title: String(localized: "signup_email_label"), field: emailTextField),
@@ -114,40 +177,7 @@ class SignUpViewController: UIViewController {
         textfieldStack.spacing = 20
         textfieldStack.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(profileImageView)
-        view.addSubview(profileImageButton)
-        view.addSubview(textfieldStack)
-        view.addSubview(signUpButton)
-        view.addSubview(activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 120),
-            profileImageView.heightAnchor.constraint(equalToConstant: 120),
-            
-            profileImageButton.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor),
-            profileImageButton.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
-            profileImageButton.widthAnchor.constraint(equalToConstant: 30),
-            profileImageButton.heightAnchor.constraint(equalToConstant: 30),
-            
-            textfieldStack.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
-            textfieldStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            textfieldStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            signUpButton.topAnchor.constraint(equalTo: textfieldStack.bottomAnchor, constant: 20),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            signUpButton.heightAnchor.constraint(equalToConstant: 48),
-            
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
-    func setupNavigationBar() {
-        title = String(localized: "signup_screen_title")
-        self.navigationController?.navigationBar.tintColor = .debtMateBlack
+        return textfieldStack
     }
     
     // MARK: - Selectors
