@@ -23,6 +23,7 @@ class PrivacyPolicyViewController: UIViewController {
         button.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         button.tintColor = .debtMateBlack
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTappedBackButton), for: .touchUpInside)
         return button
     }()
     
@@ -67,6 +68,10 @@ class PrivacyPolicyViewController: UIViewController {
             let request = URLRequest(url: url)
             webView.load(request)
         }
+    }
+    
+    @objc private func didTappedBackButton() {
+        self.dismiss(animated: true)
     }
 }
 
