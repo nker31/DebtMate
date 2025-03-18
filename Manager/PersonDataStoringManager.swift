@@ -89,6 +89,7 @@ class PersonDataStoringManager: PersonDataStoringManagerProtocol {
                     return nil
                 }
             }
+            sortPersonData()
         } catch {
             throw PersonError.fetchDataFailed
         }
